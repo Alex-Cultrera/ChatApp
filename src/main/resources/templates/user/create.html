@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Create User</title>
+    <link href="/userCreate.css" type="text/css" rel="stylesheet" />
+<!--    <script src="https://kit.fontawesome.com/38d88a400f.js" crossorigin="anonymous"></script>-->
+</head>
+
+<body>
+
+<form action="" method="post">
+    <a class="icon" th:href="@{/users}"><i id="xMarkIcon" class="fa-solid fa-circle-xmark fa-lg"></i></a>
+    <h1>ChatApp</h1>
+    <h2>Create a new account</h2>
+    <h4>It’s quick and easy.</h4>
+    <div>
+        Username:
+    </div>
+    <span>
+        <input type="text" id="username" th:field="${user.username}"/>
+    </span>
+    <div>
+        Password:
+    </div>
+    <span>
+        <input type="password" id="password" th:field="${user.password}"/>
+    </span>
+    <div>
+        Full Name:
+    </div>
+    <span>
+        <input type="text" id="fullName" th:field="${user.name}"/>
+    </span>
+    <div class="buttons">
+        <div>
+            <input type="submit" id="createUserButton" value="Sign Up"/>
+        </div>
+        <div>
+            <input type="button" value="Already have an account?" id="goToLogIn"/>
+        </div>
+    </div>
+</form>
+<script type="text/javascript" src="/userCreate.js"></script>
+</body>
+</html>

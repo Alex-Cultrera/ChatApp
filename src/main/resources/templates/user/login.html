@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User Login</title>
+    <link href="/userLogin.css" type="text/css" rel="stylesheet" />
+</head>
+
+<body>
+
+<form action="" method="post">
+    <h1>ChatApp</h1>
+    <h2>Welcome to ChatApp!</h2>
+    <h4>Please log in below.</h4>
+    <div>
+        Username:
+    </div>
+    <span>
+        <input type="text" id="username" th:field="${user.username}"/>
+    </span>
+    <div>
+        Password:
+    </div>
+    <span>
+        <input type="password" id="password" th:field="${user.password}"/>
+    </span>
+
+    <div class="buttons">
+        <div>
+            <input type="submit" id="logInButton" value="Log in"/>
+        </div>
+        <div>
+            <input type="button" value="Create account" id="goToRegister"/>
+        </div>
+    </div>
+</form>
+<script type="text/javascript" src="/userLogin.js"></script>
+</body>
+</html>

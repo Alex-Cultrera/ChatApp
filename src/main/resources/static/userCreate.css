@@ -1,0 +1,110 @@
+* {
+    font-family: Arial, Helvetica, sans-serif;
+    background: rgb(219, 216, 216);
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    margin-bottom: 5px;
+    width: 360px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgb(240, 241, 243);
+    color: blue;
+}
+
+h2 {
+    margin-bottom: 5px;
+    width: 360px;
+    background: rgb(240, 241, 243);
+}
+
+h4 {
+    margin-top: 0px;
+    width: 360px;
+    background: rgb(240, 241, 243);
+    color: rgb(128, 128, 128);
+    font-weight: lighter;
+}
+
+form {
+    margin-top: 5%;
+    background: rgb(240, 241, 243);
+    width: 360px;
+    border-radius: 10px;
+    padding: 40px 80px 50px 80px;
+}
+
+form div {
+    background: rgb(240, 241, 243);
+    width: 360px;
+}
+
+form span input {
+    background: white;
+    padding-bottom: 4px;
+    width: 350px;
+    height: 25px;
+    margin-bottom: 5%;
+    border-radius: 5px;
+}
+
+.icon {
+    background: rgb(240, 241, 243);
+    display: flex;
+    justify-content: right;
+    color: rgb(128, 128, 128);
+    text-decoration: none;
+}
+
+.icon:hover {
+    text-shadow: 0px 0px 5px black;
+    0px 0px 25px black;
+    0px 0px 50px black;
+    0px 0px 100px black;
+}
+
+#createUserButton {
+    background: blue;
+    border-radius: 5px;
+    border: none;
+    padding: 10px 25px 10px 25px;
+    color: white;
+    font-weight: bold;
+    font-size: large;
+}
+
+#createUserButton:hover {
+    box-shadow: 0px 0px 5px black;
+    0px 0px 25px black;
+    0px 0px 50px black;
+    0px 0px 100px black;
+}
+
+#goToLogIn {
+    background: rgb(240, 241, 243);
+    color: blue;
+    border: none;
+    font-weight: 400;
+    font-size: medium;
+}
+
+#goToLogIn:hover {
+    color: black;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+
+
+
