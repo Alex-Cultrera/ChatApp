@@ -24,43 +24,59 @@ public class UserService {
 //        return userRepo.findAllUsersWithChannelsAndMessages();
 //    }
 
+//    public User findById(Long userId) {
+//        Optional<User> userOpt = userRepo.findById(userId);
+//        return userOpt.orElse(new User());
+//    }
+
     public User findById(Long userId) {
-        Optional<User> userOpt = userRepo.findById(userId);
-        return userOpt.orElse(new User());
+        return userRepo.findById(userId).orElse(null);
     }
 
     public void save(User user) {
         userRepo.save(user);
     }
 
-    public void delete(Long userId) {
-        userRepo.deleteById(userId);
-    }
-
-    public void update(User existingUser, User user) {
-        if (existingUser != null) {
-            existingUser.setUsername(user.getUsername());
-            existingUser.setName(user.getName());
-
-            if (user.getPassword() != null && !user.getPassword().isEmpty()) {
-                existingUser.setPassword(user.getPassword());
-            }
+//    public void delete(Long userId) {
+//        userRepo.deleteById(userId);
+//    }
 //
-//            Address address = existingUser.getAddress();
-//            if (address != null) {
-//                address.setAddressLine1(user.getAddress().getAddressLine1());
-//                address.setAddressLine2(user.getAddress().getAddressLine2());
-//                address.setCity(user.getAddress().getCity());
-//                address.setRegion(user.getAddress().getRegion());
-//                address.setCountry(user.getAddress().getCountry());
-//                address.setZipCode(user.getAddress().getZipCode());
+//    public void update(User existingUser, User user) {
+//        if (existingUser != null) {
+//            existingUser.setUsername(user.getUsername());
+//            existingUser.setName(user.getName());
 //
-//                messageService.saveAddress(address);
+//            if (user.getPassword() != null && !user.getPassword().isEmpty()) {
+//                existingUser.setPassword(user.getPassword());
 //            }
-            user = existingUser;
-            save(user);
-        }
+////
+////            Address address = existingUser.getAddress();
+////            if (address != null) {
+////                address.setAddressLine1(user.getAddress().getAddressLine1());
+////                address.setAddressLine2(user.getAddress().getAddressLine2());
+////                address.setCity(user.getAddress().getCity());
+////                address.setRegion(user.getAddress().getRegion());
+////                address.setCountry(user.getAddress().getCountry());
+////                address.setZipCode(user.getAddress().getZipCode());
+////
+////                messageService.saveAddress(address);
+////            }
+//            user = existingUser;
+//            save(user);
+//        }
+//    }
+
+
+    public boolean validateCredentials(String username, String password) {
+        User user = userRepo.findByUsername(username);
+        return user != null && user.getPassword().equals(password);
     }
+
+    public User findByUsername(String username) {
+        return userRepo.findByUsername(username);
+    }
+
+
 
 
 }

@@ -10,6 +10,7 @@ import java.util.Set;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
+    User findByUsername (String username);
 
 //    @Query("select u from User u"
 //            + " left join fetch u.accounts"

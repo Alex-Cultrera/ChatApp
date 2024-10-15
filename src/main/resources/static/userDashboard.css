@@ -1,0 +1,134 @@
+* {
+    font-family: Arial, Helvetica, sans-serif;
+    background: rgb(219, 216, 216);
+}
+
+header {
+    background: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    border-radius: 10px;
+    width: 95%;
+}
+
+p {
+    font-size: xx-large;
+    font-weight: bold;
+    color: blue;
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 0;
+   }
+
+header input {
+    background: blue;
+    border-radius: 5px;
+    border: none;
+    padding: 10px 15px 10px 15px;
+    color: white;
+    font-weight: bold;
+    font-size: large;
+    margin: 20px;
+}
+
+header input:hover {
+     box-shadow: 0 0 5px black;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+div {
+    background: white;
+    width: 50%;
+    max-width: 900px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0;
+    margin-bottom: 0;
+}
+
+.fullName {
+    background: white;
+    color: blue;
+    padding: 0;
+    margin-bottom: 0;
+    font-size: large;
+    font-weight: bold;
+}
+
+.editIconClass {
+    background: white;
+    color: blue;
+    text-decoration: none;
+}
+
+#editIcon {
+    background: white;
+}
+
+.editIconClass:hover {
+    text-shadow: 0 0 5px black;
+}
+
+div div {
+    background: white;
+    width: 97%;
+    max-width: 890px;
+    margin-bottom: 0;
+    padding: 0;
+}
+
+.userId,.username,.password,.address,.accounts {
+    font-weight: bold;
+}
+
+#a1,#a2,#a3,#a6 {
+    margin-left: 5%;
+}
+
+#addressInfo {
+    background: white;
+}
+
+#comma1, #comma2, #line2 {
+    background: white;
+}
+
+#comma {
+    background: white;
+}
+
+span {
+    color: black;
+    background: white;
+    padding-bottom: 4px;
+    margin-bottom: 5%;
+}
+
+#accountInfo {
+    background: white;
+    color: blue;
+    margin-left: 5%;
+}
+
+#accountInfo:hover {
+    color: black;
+}
+
+

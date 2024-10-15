@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Main Dashboard</title>
+    <link href="/userDashboard.css" type="text/css" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/38d88a400f.js" crossorigin="anonymous"></script>
+</head>
+
+<header>
+        <p id="users">Welcome to ChatApp, [[${user.name}]]!</p>
+        <input type="button" value="Sign Out" id="signOutButton"/>
+</header>
+
+<body>
+<!--<div th:each="user : ${users}"> </div>-->
+<div class="userCard">
+    <span class="container">
+        <a class="fullName" th:text="${user.name}"></a>
+        <a class="editIconClass" th:href="@{/user/{userId}(userId=${user.userId})}">
+            <i id="editIcon" class="fa-solid fa-pen-to-square fa-lg"></i>
+        </a>
+    </span>
+    <hr/>
+    <span class="userId">User Id: </span><span>[[${user.userId}]]</span><br/>
+    <span class="username">Username: </span><span th:text="${user.username}"></span><br/>
+    <span class="password">Password: </span><span th:text="${user.password}"></span>
+    <hr/>
+    <div class="channels">Channels:<br/></div>
+    <div th:each="channel : ${user.channels}" th:if="${channel.channelName != ''}">
+        <span>
+            <a id="channelInfo" th:href="@{/user/{userId}/channel/{channelId}(userId=${user.userId}, channelId=${channel.channelId})}">[[${channel.channelName}]]</a>
+        </span>
+    </div>
+</div>
+
+<script type="text/javascript" src="/userDashboard.js"></script>
+</body>
+</html>
+

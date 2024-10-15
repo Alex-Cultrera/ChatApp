@@ -9,6 +9,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Set;
 
@@ -25,21 +26,6 @@ public class UserController {
 		this.messageService = messageService;
 	}
 
-//	@GetMapping("/users")
-//	public String getAllUsers(ModelMap model) {
-//		Set<User> users = userService.findAll();
-//		model.put("users", users);
-//		if (users.size() == 1) {
-//			model.put("user", users.iterator().next());
-//		}
-//		return "users";
-//	}
-
-	@PostMapping("/users")
-	public String postAllUsers(ModelMap model) {
-		return "redirect:/users";
-	}
-
 	@GetMapping("/register")
 	public String getCreateUser (ModelMap model) {
 		model.put("user", new User());
@@ -48,14 +34,14 @@ public class UserController {
 
 	@PostMapping("/register")
 	public String postCreateUser (User user) {
-		if (user.getUsername().isEmpty() || user.getPassword().isEmpty()) {
+		if (user.getUsername().isEmpty() || user.getPassword().isEmpty() || user.getName().isEmpty()) {
 			return "redirect:/register";
 		} else {
 //		messageService.createNewUserAddress(user);
 //		channelService.createDefaultUserAccounts(user);
 		userService.save(user);
 		}
-		return "redirect:/register";
+		return "redirect:/login";
 	}
 
 	@GetMapping("/login")
@@ -64,28 +50,73 @@ public class UserController {
 		return "user/login";
 	}
 
-	@GetMapping("/users/{userId}")
-	public String getUser (ModelMap model, @PathVariable Long userId) {
+	@PostMapping("/login")
+	public String postLogin (User user, RedirectAttributes redirectAttributes) {
+		if (user.getUsername().isEmpty() || user.getPassword().isEmpty()) {
+			return "redirect:/login";
+		} else {
+			// Validate user credentials
+			User validUser = userService.findByUsername(user.getUsername());
+			if (validUser == null || !validUser.getPassword().equals(user.getPassword())) {
+				System.out.println("NOT A VALID USER");
+				return "redirect:/login"; // Invalid credentials, redirect back to login
+			}
+			System.out.println("USER IS VALID");
+			redirectAttributes.addAttribute("userId", validUser.getUserId());
+		}
+		return "redirect:/user/{userId}/dashboard"; // Successful login
+	}
+
+	@GetMapping("/user/{userId}/dashboard")
+	public String getDashboard (ModelMap model, @PathVariable Long userId) {
 		User user = userService.findById(userId);
 		if (user == null) {
 			return "redirect:/users";
 		}
 		model.put("user", user);
 		model.put("channels", user.getChannels());
-		return "user/read";
+		return "user/dashboard";
 	}
 
-	@PostMapping("/users/{userId}/update")
-	public String updateUser(@PathVariable Long userId, User user) {
-		User existingUser = userService.findById(userId);
-		userService.update(existingUser, user);
-		return "redirect:/users/" + user.getUserId();
-	}
+//	@GetMapping("/users/{userId}")
+//	public String getUser (ModelMap model, @PathVariable Long userId) {
+//		User user = userService.findById(userId);
+//		if (user == null) {
+//			return "redirect:/users";
+//		}
+//		model.put("user", user);
+//		model.put("channels", user.getChannels());
+//		return "user/read";
+//	}
+//
+//	@PostMapping("/users/{userId}/update")
+//	public String updateUser(@PathVariable Long userId, User user) {
+//		User existingUser = userService.findById(userId);
+//		userService.update(existingUser, user);
+//		return "redirect:/users/" + user.getUserId();
+//	}
+//
+//	@PostMapping("/users/{userId}/delete")
+//	public String deleteUser(@PathVariable Long userId) {
+//		userService.delete(userId);
+//		return "redirect:/users";
+//	}
 
-	@PostMapping("/users/{userId}/delete")
-	public String deleteUser(@PathVariable Long userId) {
-		userService.delete(userId);
-		return "redirect:/users";
-	}
+	//	@GetMapping("/users")
+//	public String getAllUsers(ModelMap model) {
+//		Set<User> users = userService.findAll();
+//		model.put("users", users);
+//		if (users.size() == 1) {
+//			model.put("user", users.iterator().next());
+//		}
+//		return "users";
+////	}
+//
+//	@PostMapping("/users")
+//	public String postAllUsers(ModelMap model) {
+//		return "redirect:/users";
+//	}
+
+
 }
 
