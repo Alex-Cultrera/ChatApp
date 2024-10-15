@@ -77,6 +77,8 @@ public class UserService {
     }
 
 
-
-
+    public boolean validateUsername(String username) {
+        User user = userRepo.findByUsername(username);
+        return user != null;
+    }
 }

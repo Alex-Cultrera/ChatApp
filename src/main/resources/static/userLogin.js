@@ -1,17 +1,16 @@
 var button = document.querySelector("#goToRegister")
 
 button.onclick = function() {
-    window.location.href = "http://localhost:8080/register";
+    window.location.href = "/register";
 };
 
  var logInButton = document.querySelector("#logInButton")
- var users = []
 
 logInButton.addEventListener('click', () => {
     var username = document.querySelector("#username")
     var password = document.querySelector("#password")
 
-    if (username.value == '' || password.value == '') {
+    if (username.value === '' || password.value === '') {
         alert("Please enter a username and a password")
     } else {
         console.log("Inputs look valid, proceed with form submission")
@@ -19,6 +18,14 @@ logInButton.addEventListener('click', () => {
             "username" : username.value,
             "password" : password.value
         }
-        users.push(user)
+
+        fetch("user/exists?username=" + username.value + "&password=" + password.value)
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data)
+            })
+
+
     }
 })
+

@@ -6,9 +6,7 @@ import com.coderscampus.Assignment14.service.MessageService;
 import com.coderscampus.Assignment14.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Set;
@@ -37,11 +35,22 @@ public class UserController {
 		if (user.getUsername().isEmpty() || user.getPassword().isEmpty() || user.getName().isEmpty()) {
 			return "redirect:/register";
 		} else {
-//		messageService.createNewUserAddress(user);
-//		channelService.createDefaultUserAccounts(user);
-		userService.save(user);
+			boolean invalidUsername = userService.validateUsername(user.getUsername());
+			if (invalidUsername) {
+				System.out.println("INVALID USERNAME");
+				return "redirect:/register";
+			} else {
+				userService.save(user);
+			}
 		}
 		return "redirect:/login";
+	}
+
+	@PostMapping("/user/exists")
+	@ResponseBody // tells Spring to treat this method like a RestController endpoint (aka RESTful endpoint) so it returns an object and not a view
+	public Boolean postExists(@RequestBody User user) {
+		User potentialUser = userService.findByUsername(user.getUsername());
+		return (potentialUser != null);
 	}
 
 	@GetMapping("/login")
