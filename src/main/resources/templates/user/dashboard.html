@@ -7,26 +7,30 @@
 </head>
 
 <header>
-        <p id="users">Welcome to ChatApp, [[${user.name}]]!</p>
-        <input type="button" value="Sign Out" id="signOutButton"/>
+    <div class="left-item"><p id="users">Welcome to ChatApp, [[${user.name}]]!</p></div>
+    <div class="right-items">
+        <div class="right-item"><a class="editUserProfile" th:href="@{/user/{userId}(userId=${user.userId})}"><i id="editUserProfile" class="fa-regular fa-user fa-xl"></i></a></div>
+        <div class="right-item"><input type="button" value="Sign Out" id="signOutButton"/></div>
+    </div>
 </header>
 
 <body>
 <!--<div th:each="user : ${users}"> </div>-->
 <div class="userCard">
-    <span class="container">
-        <a class="fullName" th:text="${user.name}"></a>
-        <a class="editIconClass" th:href="@{/user/{userId}(userId=${user.userId})}">
-            <i id="editIcon" class="fa-solid fa-pen-to-square fa-lg"></i>
+    <div class="container">
+        <a class="fullName" th:text="${user.name}"></a> <a class="space">(</a><a class="username" th:text="${user.username}"></a><a class="space2">)</a>
+    </div>
+    <hr/>
+    <div class="newChannel">
+        <br>
+        <a id="newChannel" th:href="@{/register}">
+            <button type="submit">
+                <i class="fa-solid fa-circle-plus fa-md" style="color: white;"></i> New Channel
+            </button>
         </a>
-    </span>
-    <hr/>
-    <span class="userId">User Id: </span><span>[[${user.userId}]]</span><br/>
-    <span class="username">Username: </span><span th:text="${user.username}"></span><br/>
-    <span class="password">Password: </span><span th:text="${user.password}"></span>
-    <hr/>
-    <div class="channels">Channels:<br/></div>
-    <div th:each="channel : ${user.channels}" th:if="${channel.channelName != ''}">
+    </div>
+    <div class="channels">Channels:</div>
+    <div class="channel" th:each="channel : ${user.channels}" th:if="${channel.channelName != ''}">
         <span>
             <a id="channelInfo" th:href="@{/user/{userId}/channel/{channelId}(userId=${user.userId}, channelId=${channel.channelId})}">[[${channel.channelName}]]</a>
         </span>

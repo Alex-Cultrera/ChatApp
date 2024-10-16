@@ -9,16 +9,14 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.Set;
-
 @Controller
-public class UserController {
-	
+public class ChannelController {
+
 	private final UserService userService;
 	private final ChannelService channelService;
 	private final MessageService messageService;
 
-	public UserController(UserService userService, ChannelService channelService, MessageService messageService) {
+	public ChannelController(UserService userService, ChannelService channelService, MessageService messageService) {
 		this.userService = userService;
 		this.channelService = channelService;
 		this.messageService = messageService;
@@ -43,7 +41,7 @@ public class UserController {
 				channelService.createDefaultUserChannels(user);
 				userService.save(user);
 			}
-		}
+        }
 		return "redirect:/login";
 	}
 

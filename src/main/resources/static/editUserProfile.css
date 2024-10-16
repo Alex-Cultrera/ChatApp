@@ -1,0 +1,111 @@
+* {
+    font-family: Arial, Helvetica, sans-serif;
+    background: rgb(219, 216, 216);
+}
+
+header {
+    background: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    border-radius: 10px;
+    width: 95%;
+}
+
+p {
+    font-size: xx-large;
+    font-weight: bold;
+    color: blue;
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+body main {
+    margin-top: 2%;
+    margin-bottom: 4%;
+    width: 360px;
+    border-radius: 10px;
+    padding: 20px 80px 40px 80px;
+    background: rgb(240, 241, 243);
+}
+
+h2, a, span, div, form {
+    background: rgb(240, 241, 243);
+}
+
+form div, input {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+form div {
+    padding-bottom: 3px;
+}
+
+input {
+    background: white;
+    padding-left: 5px;
+    padding-bottom: 3px;
+    width: 200px;
+    height: 25px;
+    margin-bottom: 1%;
+    margin-left: 1%;
+    border-radius: 5px;
+}
+
+#updateUser {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 30px;
+}
+
+#updateUser input {
+    color: white;
+    font-weight: bold;
+    border: none;
+    text-decoration: none;
+    padding: 5px 15px 10px 15px;
+    width: fit-content;
+}
+
+#updateUser input {
+    background: blue;
+}
+
+#updateUser input:hover, #deleteUser input:hover {
+    box-shadow: 0 0 5px black;
+}
+
+#back {
+    margin-top: 10px;
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+#back button {
+    color: white;
+    background: rgb(128, 128, 128);
+    font-weight: bold;
+    border: none;
+    padding: 10px 15px 10px 15px;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+#back button:hover {
+    box-shadow: 0 0 5px black;
+}
+

@@ -41,30 +41,18 @@ public class UserService {
 //        userRepo.deleteById(userId);
 //    }
 //
-//    public void update(User existingUser, User user) {
-//        if (existingUser != null) {
-//            existingUser.setUsername(user.getUsername());
-//            existingUser.setName(user.getName());
-//
-//            if (user.getPassword() != null && !user.getPassword().isEmpty()) {
-//                existingUser.setPassword(user.getPassword());
-//            }
-////
-////            Address address = existingUser.getAddress();
-////            if (address != null) {
-////                address.setAddressLine1(user.getAddress().getAddressLine1());
-////                address.setAddressLine2(user.getAddress().getAddressLine2());
-////                address.setCity(user.getAddress().getCity());
-////                address.setRegion(user.getAddress().getRegion());
-////                address.setCountry(user.getAddress().getCountry());
-////                address.setZipCode(user.getAddress().getZipCode());
-////
-////                messageService.saveAddress(address);
-////            }
-//            user = existingUser;
-//            save(user);
-//        }
-//    }
+    public void update(User existingUser, User user) {
+        if (existingUser != null) {
+            existingUser.setUsername(user.getUsername());
+            existingUser.setName(user.getName());
+
+            if (user.getPassword() != null && !user.getPassword().isEmpty()) {
+                existingUser.setPassword(user.getPassword());
+            }
+            user = existingUser;
+            save(user);
+        }
+    }
 
 
     public boolean validateCredentials(String username, String password) {
@@ -75,7 +63,6 @@ public class UserService {
     public User findByUsername(String username) {
         return userRepo.findByUsername(username);
     }
-
 
     public boolean validateUsername(String username) {
         User user = userRepo.findByUsername(username);

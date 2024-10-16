@@ -6,12 +6,26 @@
 header {
     background: white;
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
+    align-items: center;
     margin-bottom: 10px;
     margin-top: 10px;
     border-radius: 10px;
     width: 95%;
+}
+
+.right-items {
+    display: flex;
+    align-items: center;
+}
+
+.right-item {
+    margin-right: 20px;
+}
+
+.left-item, .right-item, .right-items {
+    background: white;
+    border-radius: 10px;
 }
 
 p {
@@ -24,7 +38,21 @@ p {
     margin: 0;
    }
 
-header input {
+.editUserProfile {
+    background: white;
+    color: blue;
+    text-decoration: none;
+}
+
+#editUserProfile {
+    background: white;
+}
+
+.editUserProfile:hover {
+    text-shadow: 0 0 5px black;
+}
+
+#signOutButton {
     background: blue;
     border-radius: 5px;
     border: none;
@@ -32,7 +60,6 @@ header input {
     color: white;
     font-weight: bold;
     font-size: large;
-    margin: 20px;
 }
 
 header input:hover {
@@ -45,18 +72,28 @@ body {
     align-items: center;
 }
 
-div {
+.userCard, .channels, .channel {
     background: white;
     width: 50%;
     max-width: 900px;
-    margin-bottom: 10px;
     border-radius: 10px;
+}
+
+.userCard {
     padding: 20px;
+}
+
+.space {
+    margin-left: 4px;
+}
+
+.space, .space2, .username{
+    background: white;
 }
 
 .container {
     display: flex;
-    justify-content: space-between;
+    justify-content: left;
     align-items: center;
     width: 100%;
     padding: 0;
@@ -72,20 +109,6 @@ div {
     font-weight: bold;
 }
 
-.editIconClass {
-    background: white;
-    color: blue;
-    text-decoration: none;
-}
-
-#editIcon {
-    background: white;
-}
-
-.editIconClass:hover {
-    text-shadow: 0 0 5px black;
-}
-
 div div {
     background: white;
     width: 97%;
@@ -94,41 +117,64 @@ div div {
     padding: 0;
 }
 
-.userId,.username,.password,.address,.accounts {
-    font-weight: bold;
-}
-
-#a1,#a2,#a3,#a6 {
-    margin-left: 5%;
-}
-
-#addressInfo {
-    background: white;
-}
-
-#comma1, #comma2, #line2 {
-    background: white;
-}
-
-#comma {
-    background: white;
-}
-
 span {
     color: black;
     background: white;
     padding-bottom: 4px;
-    margin-bottom: 5%;
+    margin-bottom: 0;
+    margin-top: 0;
 }
 
-#accountInfo {
+.newChannel {
     background: white;
-    color: blue;
-    margin-left: 5%;
+    color: white;
 }
 
-#accountInfo:hover {
-    color: black;
+#newChannel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 30px;
+    text-decoration: none;
+    margin-top: 0;
+    background: white;
+    color: white;
 }
 
+#newChannel button, #newChannel button i {
+    background: blue;
+    color: white;
+    font-weight: bold;
+    border: none;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    border-radius: 10px;
+}
 
+#newChannel button {
+    padding: 10px 15px 10px 10px;
+    margin-top: 0;
+}
+
+#newChannel button i {
+    margin-right: 7px;
+}
+
+#newChannel button:hover {
+    box-shadow: 0 0 5px black;
+}
+
+.channels {
+    margin-top: 10px;
+}
+
+.channels, .channel {
+    margin-bottom: 0;
+    padding: 5px;
+}
+
+#channelInfo {
+    margin-top: 0;
+    background: white;
+}

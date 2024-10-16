@@ -23,8 +23,6 @@ createUserButton.addEventListener('click', () => {
         checkIfUsernameExists(theUsername).then(usernameExists => {
             if (usernameExists) {
                 window.location.href = "/register";
-            } else {
-                alert("username is unique")
             }
         })
     }

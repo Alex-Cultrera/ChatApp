@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>User</title>
+    <link href="/editUserProfile.css" type="text/css" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/38d88a400f.js" crossorigin="anonymous"></script>
+</head>
+<header>
+    <p>Edit Your Profile</p>
+</header>
+
+<body>
+
+<main class="personalInfo">
+    <h2>
+        Personal Information
+    </h2>
+    <form th:action="@{/user/{userId}/update(userId=${user.userId})}" method="post">
+        <div>
+            Username: <input type="text" th:field="${user.username}"/>
+        </div>
+        <div>
+            Password: <input type="password" th:field="${user.password}"/>
+        </div>
+        <div>
+            Full Name: <input type="text" th:field="${user.name}"/>
+        </div>
+        <div>
+            <hr/>
+        </div>
+        <div>
+            <br>
+        </div>
+        <div id="updateUser">
+            <input type="submit" value="Update User"/>
+        </div>
+    </form>
+
+    <div>
+        <br>
+        <a id="back" th:href="@{/user/{userId}/dashboard(userId=${user.userId})}" th:if="${userId != null}">
+            <button>Back</button>
+        </a>
+    </div>
+
+</main>
+
+</body>
+</html>
+
