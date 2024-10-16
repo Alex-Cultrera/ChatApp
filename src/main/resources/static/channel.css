@@ -1,0 +1,101 @@
+* {
+    font-family: Arial, Helvetica, sans-serif;
+    background: rgb(219, 216, 216);
+}
+
+header {
+    background: white;
+    margin: 10px;
+    border-radius: 10px;
+    width: 95%;
+}
+
+p {
+    display: flex;
+    justify-content: left;
+    font-size: xx-large;
+    font-weight: bold;
+    color: blue;
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    width: 100%;
+    margin: 0;
+}
+
+main {
+    border-radius: 10px;
+    padding: 20px 80px 40px 80px;
+    background: rgb(219, 216, 216);
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.left, .right {
+    display: flex;
+    padding: 5px;
+    margin: 10px;
+}
+
+button, input {
+    padding: 10px 15px 10px 15px;
+}
+
+#deleteChannel {
+    background: rgb(219, 216, 216);
+}
+
+#deleteChannel input {
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    width: fit-content;
+    border-radius: 5px;
+    border: none;
+    background: red;
+}
+
+#deleteChannel input:hover {
+    box-shadow: 0 0 5px black;
+}
+
+#back {
+    text-decoration: none;
+    border: none;
+    background: rgb(219, 216, 216);
+}
+
+#back button {
+    color: white;
+    background: rgb(128, 128, 128);
+    font-weight: bold;
+    border-radius: 10px;
+    border: none;
+}
+
+#back button:hover {
+    box-shadow: 0 0 5px black;
+}
+
+#messageBox {
+    width: 300px;
+    height: 100px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    font-size: 16px;
+}
+#submitButton {
+    margin-top: 10px;
+}
+
+.chatRoom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+

@@ -5,6 +5,8 @@ import com.coderscampus.Assignment14.domain.User;
 import com.coderscampus.Assignment14.repository.ChannelRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class ChannelService {
 
@@ -12,6 +14,11 @@ public class ChannelService {
 
     public ChannelService(ChannelRepository channelRepo) {
         this.channelRepo = channelRepo;
+    }
+
+    public Channel findById(Long channelId) {
+        Optional<Channel> channelOpt = channelRepo.findById(channelId);
+        return channelOpt.orElse(new Channel());
     }
 
     public void createDefaultUserChannels(User user) {

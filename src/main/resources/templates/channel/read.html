@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Channel</title>
+    <link href="/channel.css" type="text/css" rel="stylesheet" />
+</head>
+<header>
+    <p>Channel: [[${channel.channelName}]]</p>
+</header>
+
+<main>
+    <div class="chatRoom">
+        <div id="output"></div>
+        <input type="text" id="username" th:value="${user.username}" readonly />
+        <textarea id="messageBox" placeholder="Type your message here..."></textarea>
+        <br>
+        <button id="submitButton">Submit</button>
+
+    </div>
+    <div class="buttons">
+        <br>
+        <a class="left" id="back" th:href="@{/user/{userId}/dashboard(userId=${user.userId})}" th:if="${userId != null}">
+            <button>Back</button>
+        </a>
+        <form class="right" id="delete" th:action="@{/user/{userId}/channel/{channelId}/delete(userId=${user.userId}, channelId=${channel.channelId})}" method="post">
+            <div id="deleteChannel">
+                <input type="submit" value="Delete Channel"/>
+            </div>
+        </form>
+    </div>
+
+    <script type="text/javascript" src="/channel.js"></script>
+</main>
+</html>

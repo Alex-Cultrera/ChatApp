@@ -177,4 +177,9 @@ span {
 #channelInfo {
     margin-top: 0;
     background: white;
+    color: blue;
+}
+
+#channelInfo:hover {
+    color: black;
 }

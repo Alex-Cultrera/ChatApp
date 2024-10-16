@@ -13,8 +13,9 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long messageId;
     private LocalDateTime messageDate;
+    private String username;
     @Column(length = 625)
-    private String messageBody;
+    private String content;
     @ManyToOne
     @JoinColumn(name="channel_id")
     private Channel channel;
@@ -35,12 +36,20 @@ public class Message {
         this.messageDate = messageDate;
     }
 
-    public String getMessageBody() {
-        return messageBody;
+    public String getUsername() {
+        return username;
     }
 
-    public void setMessageBody(String messageBody) {
-        this.messageBody = messageBody;
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public Channel getChannel() {
@@ -56,7 +65,8 @@ public class Message {
         return "Message{" +
                 "messageId=" + messageId +
                 ", messageDate=" + messageDate +
-                ", messageBody='" + messageBody + '\'' +
+                ", username='" + username + '\'' +
+                ", content='" + content + '\'' +
                 ", channel=" + channel +
                 '}';
     }
@@ -66,11 +76,11 @@ public class Message {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Message message = (Message) o;
-        return Objects.equals(messageId, message.messageId) && Objects.equals(messageDate, message.messageDate) && Objects.equals(messageBody, message.messageBody) && Objects.equals(channel, message.channel);
+        return Objects.equals(messageId, message.messageId) && Objects.equals(messageDate, message.messageDate) && Objects.equals(username, message.username) && Objects.equals(content, message.content) && Objects.equals(channel, message.channel);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(messageId, messageDate, messageBody, channel);
+        return Objects.hash(messageId, messageDate, username, content, channel);
     }
 }
