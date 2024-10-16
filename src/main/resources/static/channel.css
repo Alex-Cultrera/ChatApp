@@ -10,7 +10,7 @@ header {
     width: 95%;
 }
 
-p {
+.headerDiv {
     display: flex;
     justify-content: left;
     font-size: xx-large;
@@ -99,3 +99,25 @@ button, input {
     align-items: center;
 }
 
+#output, #username, #messageBox, #submitButton {
+
+}
+
+#output {
+    background: white;
+    width: 80%;
+}
+
+#username {
+    background: green;
+}
+
+p {
+    background: white;
+}
+
+.username {
+    color: blue;
+    background: white;
+    font-weight: bold;
+}

@@ -44,7 +44,7 @@ function sendMessage() {
 // function to display a message
 function displayMessage(message) {
     const output = document.getElementById('output');
-    output.innerHTML += `<p><strong>${message.username}:</strong> ${message.content}</p>`;
+    output.innerHTML += `<p><span class="username">${message.username}:</span>  ${message.content}</p>`;
 }
 
 function fetchMessages() {
@@ -59,10 +59,29 @@ function fetchMessages() {
         .catch(error => console.error('Error fetching messages:', error));
 }
 
-// Poll for new messages every 500 milliseconds
-setInterval(fetchMessages, 500);
+// function longPollFetch() {
+//     fetch('/api/messages/long-poll')
+//         .then(response => response.json())
+//         .then(messages => {
+//             messages.forEach(displayMessage);
+//             longPollFetch(); // Send the next request immediately after processing
+//         })
+//         .catch(error => {
+//             console.error('Error:', error);
+//             setTimeout(longPollFetch, 5000); // Retry after a delay if there's an error
+//         });
+// }
 
 // initial fetch when the page loads
 window.onload = function () {
     fetchMessages();
 };
+
+// longPollFetch();
+
+
+// Poll for new messages every 500 milliseconds
+// setInterval(fetchMessages, 500);
+
+
+
