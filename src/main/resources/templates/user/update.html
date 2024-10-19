@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <title>User</title>
-    <link href="/editUserProfile.css" type="text/css" rel="stylesheet" />
+    <link href="/uUpdate.css" type="text/css" rel="stylesheet" />
     <script src="https://kit.fontawesome.com/38d88a400f.js" crossorigin="anonymous"></script>
 </head>
 <header>
@@ -38,7 +38,7 @@
 
     <div>
         <br>
-        <a id="back" th:href="@{/user/{userId}/dashboard(userId=${user.userId})}" th:if="${userId != null}">
+        <a id="back" th:href="@{/user/{userId}(userId=${user.userId})}" th:if="${userId != null}">
             <button>Back</button>
         </a>
     </div>

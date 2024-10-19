@@ -112,11 +112,22 @@ button, input {
     background: green;
 }
 
+input:read-only {
+    width: auto;
+    text-align: center;
+}
+
 p {
     background: white;
 }
 
 .username {
+    color: blue;
+    background: white;
+    font-weight: bold;
+}
+
+.timestamp {
     color: blue;
     background: white;
     font-weight: bold;

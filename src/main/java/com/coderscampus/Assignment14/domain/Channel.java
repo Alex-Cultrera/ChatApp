@@ -14,6 +14,9 @@ public class Channel {
     private Long channelId;
     @Column(length = 100)
     private String channelName;
+    @ManyToOne
+    @JoinColumn(name = "created_by")
+    private User createdBy;
     @ManyToMany(mappedBy = "channels")
     private List<User> users = new ArrayList<>();
     @OneToMany(mappedBy = "channel")
@@ -34,6 +37,14 @@ public class Channel {
 
     public void setChannelName(String channelName) {
         this.channelName = channelName;
+    }
+
+    public User getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(User createdBy) {
+        this.createdBy = createdBy;
     }
 
     public List<User> getUsers() {
@@ -57,6 +68,7 @@ public class Channel {
         return "Channel{" +
                 "channelId=" + channelId +
                 ", channelName='" + channelName + '\'' +
+                ", createdBy=" + createdBy +
                 ", users=" + users +
                 ", messages=" + messages +
                 '}';
@@ -67,11 +79,11 @@ public class Channel {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Channel channel = (Channel) o;
-        return Objects.equals(channelId, channel.channelId) && Objects.equals(channelName, channel.channelName) && Objects.equals(users, channel.users) && Objects.equals(messages, channel.messages);
+        return Objects.equals(channelId, channel.channelId) && Objects.equals(channelName, channel.channelName) && Objects.equals(createdBy, channel.createdBy) && Objects.equals(users, channel.users) && Objects.equals(messages, channel.messages);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(channelId, channelName, users, messages);
+        return Objects.hash(channelId, channelName, createdBy, users, messages);
     }
 }

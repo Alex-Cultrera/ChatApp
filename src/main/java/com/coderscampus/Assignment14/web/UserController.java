@@ -2,36 +2,31 @@ package com.coderscampus.Assignment14.web;
 
 import com.coderscampus.Assignment14.domain.User;
 import com.coderscampus.Assignment14.service.ChannelService;
-import com.coderscampus.Assignment14.service.MessageService;
 import com.coderscampus.Assignment14.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.Set;
-
 @Controller
 public class UserController {
 	
 	private final UserService userService;
 	private final ChannelService channelService;
-	private final MessageService messageService;
 
-	public UserController(UserService userService, ChannelService channelService, MessageService messageService) {
+	public UserController(UserService userService, ChannelService channelService) {
 		this.userService = userService;
 		this.channelService = channelService;
-		this.messageService = messageService;
 	}
 
 	@GetMapping("/register")
-	public String getCreateUser (ModelMap model) {
+	public String create (ModelMap model) {
 		model.put("user", new User());
 		return "user/create";
 	}
 
 	@PostMapping("/register")
-	public String postCreateUser (User user) {
+	public String postCreate (User user) {
 		if (user.getUsername().isEmpty() || user.getPassword().isEmpty() || user.getName().isEmpty()) {
 			return "redirect:/register";
 		} else {
@@ -55,7 +50,7 @@ public class UserController {
 	}
 
 	@GetMapping("/login")
-	public String getLogin (ModelMap model) {
+	public String login (ModelMap model) {
 		model.put("user", new User());
 		return "user/login";
 	}
@@ -74,57 +69,37 @@ public class UserController {
 			System.out.println("USER IS VALID");
 			redirectAttributes.addAttribute("userId", validUser.getUserId());
 		}
-		return "redirect:/user/{userId}/dashboard"; // Successful login
+		return "redirect:/user/{userId}/"; // Successful login
 	}
 
-	@GetMapping("/user/{userId}/dashboard")
-	public String getDashboard (ModelMap model, @PathVariable Long userId) {
+	@GetMapping("/user/{userId}")
+	public String read (ModelMap model, @PathVariable Long userId) {
 		User user = userService.findById(userId);
 		if (user == null) {
 			return "redirect:/users";
 		}
 		model.put("user", user);
 		model.put("channels", user.getChannels());
-		return "user/dashboard";
+		return "user/read";
 	}
 
-	@GetMapping("/user/{userId}")
-	public String editUser (ModelMap model, @PathVariable Long userId) {
+	@GetMapping("/user/{userId}/update")
+	public String update (ModelMap model, @PathVariable Long userId) {
 		User user = userService.findById(userId);
 		if (user == null) {
-			return "redirect:/user/{userId}/dashboard";
+			return "redirect:/user/{userId}";
 		}
 		model.put("user", user);
-		return "user/editUserProfile";
+		return "user/update";
 	}
 
 	@PostMapping("/user/{userId}/update")
-	public String updateUser(@PathVariable Long userId, User user) {
+	public String postUpdate(@PathVariable Long userId, User user) {
 		User existingUser = userService.findById(userId);
 		userService.update(existingUser, user);
-		return "redirect:/user/" + user.getUserId();
+		return "redirect:/user/" + user.getUserId() + "/update";
 	}
-//
-//	@PostMapping("/users/{userId}/delete")
-//	public String deleteUser(@PathVariable Long userId) {
-//		userService.delete(userId);
-//		return "redirect:/users";
-//	}
 
-	//	@GetMapping("/users")
-//	public String getAllUsers(ModelMap model) {
-//		Set<User> users = userService.findAll();
-//		model.put("users", users);
-//		if (users.size() == 1) {
-//			model.put("user", users.iterator().next());
-//		}
-//		return "users";
-////	}
-//
-//	@PostMapping("/users")
-//	public String postAllUsers(ModelMap model) {
-//		return "redirect:/users";
-//	}
 
 
 }

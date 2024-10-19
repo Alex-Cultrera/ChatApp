@@ -1,3 +1,6 @@
+
+
+// TWO WAYS OF SENDING A MESSAGE: PRESS ENTER OR CLICK SUBMIT
 document.getElementById('submitButton').addEventListener('click', sendMessage);
 
 document.getElementById('messageBox').addEventListener('keydown', function(event) {
@@ -7,22 +10,25 @@ document.getElementById('messageBox').addEventListener('keydown', function(event
     }
 });
 
+
+// FUNCTION FOR SENDING A MESSAGE
 function sendMessage() {
     const username= document.getElementById('username').value.trim();
     const message = document.getElementById('messageBox').value.trim();
 
+    // IF USER TRIES TO SEND A BLANK MESSAGE
     if (!message) {
         alert("Please enter a message.");
         return;
     }
 
-    // message object
+    // CREATE A MESSAGE OBJECT
     const chatMessage = {
         username: username,
         content: message
     };
 
-    // send message object to server
+    // SEND MESSAGE OBJECT TO SERVER
     fetch('/api/messages', {
         method: 'POST',
         headers: {
@@ -32,26 +38,32 @@ function sendMessage() {
     })
     .then(response => response.json())
     .then(data => {
-        // update output with the new message
+        // UPDATE OUTPUT WITH THE NEW MESSAGE
         displayMessage(data);
-        // Clear the box after submission
+        // CLEAR THE TYPE MESSAGE BOX AFTER SUBMISSION
         document.getElementById('messageBox').value = '';
     })
     .catch(error => console.error('Error:', error));
 }
 
 
-// function to display a message
+// FUNCTION TO DISPLAY A MESSAGE
 function displayMessage(message) {
     const output = document.getElementById('output');
-    output.innerHTML += `<p><span class="username">${message.username}:</span>  ${message.content}</p>`;
+    const formattedDate = new Date(message.messageDate).toLocaleString();
+
+    if (!document.querySelector(`.message-${message.id}`)) {
+        output.innerHTML += `<p><span class="username">${message.username}  </span><span class="timestamp">(${formattedDate}):</span>  ${message.content}</p>`;
+    }
 }
 
+
+// FUNCTION TO FETCH ALL STORED MESSAGES FROM THE SERVER
 function fetchMessages() {
-    fetch ('/api/messages')
+    fetch (`/api/messages`)
         .then(response => response.json())
         .then(messages => {
-            // clear current output and display all messages
+            // CLEAR THE CURRENT OUTPUT AND DISPLAY ALL MESSAGES
             const output = document.getElementById('output');
             output.innerHTML = '';
             messages.forEach(displayMessage);
@@ -59,29 +71,20 @@ function fetchMessages() {
         .catch(error => console.error('Error fetching messages:', error));
 }
 
-// function longPollFetch() {
-//     fetch('/api/messages/long-poll')
-//         .then(response => response.json())
-//         .then(messages => {
-//             messages.forEach(displayMessage);
-//             longPollFetch(); // Send the next request immediately after processing
-//         })
-//         .catch(error => {
-//             console.error('Error:', error);
-//             setTimeout(longPollFetch, 5000); // Retry after a delay if there's an error
-//         });
-// }
 
-// initial fetch when the page loads
+// FETCH MESSAGES WHEN THE PAGE LOADS
 window.onload = function () {
     fetchMessages();
 };
 
-// longPollFetch();
+
+// POLL FOR NEW MESSAGES EVERY 500 MILLISECONDS (NOT IDEAL / CPU INTENSIVE)
+setInterval(fetchMessages, 500);
 
 
-// Poll for new messages every 500 milliseconds
-// setInterval(fetchMessages, 500);
+
+
+
 
 
 
