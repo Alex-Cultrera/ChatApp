@@ -1,3 +1,7 @@
+// const userId= document.getElementById('currentUserId').value.trim();
+// const username= document.getElementById('currentUsername').value.trim();
+// const channelId = document.getElementById('channelId').value;
+// const channelName = document.getElementById('channelName').value;
 
 
 // TWO WAYS OF SENDING A MESSAGE: PRESS ENTER OR CLICK SUBMIT
@@ -26,6 +30,9 @@ function sendMessage() {
     const chatMessage = {
         username: username,
         content: message
+        // channel: {
+        //     channelId: parseInt(channelId)
+        // }
     };
 
     // SEND MESSAGE OBJECT TO SERVER
@@ -57,9 +64,10 @@ function displayMessage(message) {
     }
 }
 
-
 // FUNCTION TO FETCH ALL STORED MESSAGES FROM THE SERVER
+// fetch (`/api/messages?channelId=${channelId}`)
 function fetchMessages() {
+
     fetch (`/api/messages`)
         .then(response => response.json())
         .then(messages => {
@@ -68,8 +76,10 @@ function fetchMessages() {
             output.innerHTML = '';
             messages.forEach(displayMessage);
         })
-        .catch(error => console.error('Error fetching messages:', error));
+        .catch(error => console.error('Error fetching messages:', error))
 }
+
+
 
 
 // FETCH MESSAGES WHEN THE PAGE LOADS
@@ -79,7 +89,7 @@ window.onload = function () {
 
 
 // POLL FOR NEW MESSAGES EVERY 500 MILLISECONDS (NOT IDEAL / CPU INTENSIVE)
-setInterval(fetchMessages, 500);
+// setInterval(fetchMessages, 500);
 
 
 

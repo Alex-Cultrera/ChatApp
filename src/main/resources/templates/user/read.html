@@ -14,32 +14,29 @@
     </div>
 </header>
 
+<input type="hidden" id="userId" th:value="${user.userId}" />
+<input type="hidden" id="user.username" th:value="${user.username}" />
+<input type="hidden" id="user.name" th:value="${user.name}" />
+
 <body>
 <div class="userCard">
     <div class="container">
         <a class="fullName" th:text="${user.name}"></a> <a class="space">(</a><a id="username" th:text="${user.username}"></a><a class="space2">)</a>
     </div>
     <hr/>
-    <div class="newChannel">
-        <br>
-        <a id="newChannel" th:href="@{/register}">
-            <button type="submit">
-                <i class="fa-solid fa-circle-plus fa-md" style="color: white;"></i> New Channel
-            </button>
-        </a>
-    </div>
     <div class="createChannel">
         <input type="text" id="channelName" placeholder="Enter channel name" />
         <button id="createChannelButton">Create Channel</button>
     </div>
     <div class="channels">Channels:</div>
-    <div class="channel" th:each="channel : ${user.channels}" th:if="${channel.channelName != ''}">
+<!--    <div class="channel" th:each="channel : ${user.channels}" th:if="${channel.channelName != ''}">-->
         <span>
-            <select id="channelSelect" onchange="fetchMessages()">
+<!--            <select id="channelSelect" onchange="fetchMessages()">-->
+            <select id="channelSelect" onchange="fetchChannels()">
                 <option id="channelDrop" value="">Select a Channel</option>
-                <!-- Channel options will be populated here -->
+                <option th:each="channel : ${user.channels}" th:text="${channel.channelName}" th:value="${channel.channelId}"></option>
             </select>
-            <a id="channelInfo" th:href="@{/user/{userId}/channel/{channelId}(userId=${user.userId}, channelId=${channel.channelId})}">[[${channel.channelName}]]</a>
+            <button id="openChannelButton" onclick="openChannel()">Open</button>
         </span>
     </div>
 </div>

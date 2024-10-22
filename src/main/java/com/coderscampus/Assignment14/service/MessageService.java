@@ -13,13 +13,16 @@ public class MessageService {
 
     private final MessageRepository messageRepo;
     private final ChannelRepository channelRepository;
+    private final ChannelService channelService;
 
-    public MessageService(MessageRepository messageRepo, ChannelRepository channelRepository) {
+    public MessageService(MessageRepository messageRepo, ChannelRepository channelRepository, ChannelService channelService) {
         this.messageRepo = messageRepo;
         this.channelRepository = channelRepository;
+        this.channelService = channelService;
     }
 
     public Message save(Message message) {
+        System.out.println("Saving message: " + message);
         return messageRepo.save(message);
     }
 

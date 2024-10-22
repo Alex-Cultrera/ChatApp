@@ -55,7 +55,7 @@ button, input {
     font-weight: bold;
     text-decoration: none;
     width: fit-content;
-    border-radius: 5px;
+    border-radius: 10px;
     border: none;
     background: red;
 }
@@ -88,9 +88,19 @@ button, input {
     border: 1px solid #ccc;
     padding: 10px;
     font-size: 16px;
+    background: white;
 }
 #submitButton {
     margin-top: 10px;
+    background: blue;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+#submitButton:hover {
+    box-shadow: 0 0 5px black;
 }
 
 .chatRoom {
@@ -109,7 +119,9 @@ button, input {
 }
 
 #username {
-    background: green;
+    background: white;
+    color: blue;
+    font-weight: bold;
 }
 
 input:read-only {

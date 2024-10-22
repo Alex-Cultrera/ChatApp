@@ -8,9 +8,22 @@
     <div class="headerDiv">Channel: [[${channel.channelName}]]</div>
 </header>
 
+<!--<input type="hidden" id="currentUserId" th:value="${user.userId}" />-->
+<!--<input type="hidden" id="currentUsername" th:value="${user.username}" />-->
+<!--<input type="hidden" id="channelId" th:value="${channel.channelId}" />-->
+<!--<input type="hidden" id="channelName" th:value="${channel.channelName}" />-->
+
 <main>
     <div class="chatRoom">
-        <div id="output"></div>
+        <div id="output">
+<!--            <div th:each="message : ${channel.messages}">-->
+<!--                <p>-->
+<!--                    <span class="username" th:text="${message.username}"></span>-->
+<!--                    <span class="timestamp" th:text="${#dates.format(message.messageDate, 'yyyy-MM-dd HH:mm')}"></span>:-->
+<!--                    <span th:text="${message.content}"></span>-->
+<!--                </p>-->
+<!--            </div>-->
+        </div>
         <input type="text" id="username" th:value="${user.username}" readonly />
         <textarea id="messageBox" placeholder="Type your message here..."></textarea>
         <br>
@@ -18,10 +31,10 @@
     </div>
     <div class="buttons">
         <br>
-        <a class="left" id="back" th:href="@{/user/{userId}(userId=${user.userId})}" th:if="${userId != null}">
+        <a class="left" id="back" th:href="@{/user/{userId}(userId=${user.userId})}">
             <button>Back</button>
         </a>
-        <form class="right" id="delete" th:action="@{/user/{userId}/channel/{channelId}/delete(userId=${user.userId}, channelId=${channel.channelId})}" method="post">
+        <form class="right" id="delete" th:action="@{/channel/{channelId}/delete channelId=${channel.channelId}}" method="post">
             <div id="deleteChannel">
                 <input type="submit" value="Delete Channel"/>
             </div>

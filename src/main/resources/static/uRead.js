@@ -5,26 +5,36 @@ button.onclick = function() {
     window.location.href = "/login";
 };
 
+
 document.getElementById('createChannelButton').addEventListener('click', createChannel);
 
+
+// FUNCTION TO CREATE NEW CHANNEL
 function createChannel() {
     const channelName = document.getElementById('channelName').value.trim();
+    const userId = document.getElementById('userId').value;
+    const username = document.getElementById('user.username').value;
+    const name = document.getElementById('user.name').value;
 
     if (!channelName) {
         alert("Please enter a channel name.");
         return;
     }
 
-    const channelData = {
+    const channel = {
         channelName: channelName,
+        createdBy: { userId: userId,
+                     username: username,
+                     name: name}
     };
+
 
     fetch('/api/channels', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify(channelData)
+        body: JSON.stringify(channel)
     })
         .then(response => {
             if (!response.ok) {
@@ -33,12 +43,18 @@ function createChannel() {
             return response.json();
         })
         .then(newChannel => {
-            addChannelToDropdown(newChannel); // Add the new channel to the dropdown
-            document.getElementById('channelName').value = ''; // Clear the input
+            console.log('New Channel:', newChannel); // Log the new channel
+            // ADD THE NEW CHANNEL TO THE DROPDOWN
+            addChannelToDropdown(newChannel);
+            fetchChannels();
+            // CLEAR THE OUTPUT
+            document.getElementById('channelName').value = '';
         })
         .catch(error => console.error('Error creating channel:', error));
 }
 
+
+// FUNCTION TO ADD CHANNEL TO DROPDOWN MENU
 function addChannelToDropdown(channel) {
     const channelSelect = document.getElementById('channelSelect');
     const option = document.createElement('option');
@@ -47,12 +63,14 @@ function addChannelToDropdown(channel) {
     channelSelect.appendChild(option);
 }
 
+
+// FUNCTION TO FETCH ALL CHANNELS FROM SERVER
 function fetchChannels() {
     fetch('/api/channels')
         .then(response => response.json())
         .then(channels => {
             const channelSelect = document.getElementById('channelSelect');
-            channelSelect.innerHTML = '';
+            // channelSelect.innerHTML = '';
 
             channels.forEach(channel => {
                 const option = document.createElement('option');
@@ -64,6 +82,24 @@ function fetchChannels() {
         .catch(error => console.error('Error fetching channels:', error));
 }
 
+
+// FETCH AND POPULATE CHANNEL LIST WHEN PAGE RELOADS
 window.onload = function () {
-    fetchChannels(); // Fetch and populate channel list
+    fetchChannels();
 };
+
+
+// FUNCTION TO OPEN SELECTED CHANNEL
+function openChannel() {
+    const channelSelect = document.getElementById('channelSelect');
+    const selectedChannelId = channelSelect.value;
+    const userId = document.getElementById('userId').value;
+
+    if (!selectedChannelId) {
+        alert("Please select a channel to open.");
+        return;
+    }
+
+    // REDIRECT TO THE SELECTED CHANNEL
+    window.location.href = `/user/${userId}/channel/${selectedChannelId}`;
+}

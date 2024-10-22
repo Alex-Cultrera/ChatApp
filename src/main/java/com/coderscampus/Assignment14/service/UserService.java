@@ -2,15 +2,18 @@ package com.coderscampus.Assignment14.service;
 
 import com.coderscampus.Assignment14.domain.User;
 import com.coderscampus.Assignment14.repository.UserRepository;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
 
     private final UserRepository userRepo;
+    private final HttpSession session;
 
-    public UserService(UserRepository userRepo) {
+    public UserService(UserRepository userRepo, HttpSession session) {
         this.userRepo = userRepo;
+        this.session = session;
     }
 
     public User findById(Long userId) {
@@ -42,4 +45,12 @@ public class UserService {
         User user = userRepo.findByUsername(username);
         return user != null;
     }
+
+//    public User getCurrentUser() {
+//        return (User) session.getAttribute("currentUser");
+//    }
+//
+//    public void setCurrentUser(User user) {
+//        session.setAttribute("currentUser", user);
+//    }
 }

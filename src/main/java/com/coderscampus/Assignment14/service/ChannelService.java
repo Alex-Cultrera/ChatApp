@@ -13,12 +13,22 @@ import java.util.Optional;
 public class ChannelService {
 
     private final ChannelRepository channelRepo;
+    private final UserService userService;
     private final UserRepository userRepo;
 
-    public ChannelService(ChannelRepository channelRepo, UserRepository userRepo) {
+    public ChannelService(ChannelRepository channelRepo, UserService userService, UserRepository userRepo) {
         this.channelRepo = channelRepo;
+        this.userService = userService;
         this.userRepo = userRepo;
     }
+
+//    public void saveChannelToUser(Channel channel, Long userId) {
+//        User existingUser = userService.findById(userId);
+//        channel.getUsers().add(existingUser);
+//        existingUser.getChannels().add(channel);
+//        channelRepo.save(channel);
+//        userService.save(existingUser);
+//    }
 
     public void createDefaultUserChannels(User user) {
         Channel defaultChannel = new Channel();
@@ -28,13 +38,15 @@ public class ChannelService {
         channelRepo.save(defaultChannel);
     }
 
-    public Channel createChannel(Channel channel, Long userId) {
-        User user = userRepo.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
-        channel.setCreatedBy(user);
-        return channelRepo.save(channel);
+    public Channel createChannel(Channel channel, User user) {
+        Channel newChannel = new Channel();
+        newChannel.setChannelName(channel.getChannelName());
+        newChannel.getUsers().add(user);
+        user.getChannels().add(newChannel);
+        return channelRepo.save(newChannel);
     }
 
-    public List<Channel> findAll() {
+      public List<Channel> findAll() {
         return channelRepo.findAll();
     }
 
@@ -46,4 +58,10 @@ public class ChannelService {
     public Channel save(Channel channel) {
         return channelRepo.save(channel);
     }
+
+    public boolean validateChannelName(String channelName) {
+        Channel channel = channelRepo.findByChannelName(channelName);
+        return channel != null;
+    }
+
 }

@@ -1,12 +1,17 @@
 package com.coderscampus.Assignment14.web;
 
+import com.coderscampus.Assignment14.domain.Channel;
 import com.coderscampus.Assignment14.domain.User;
 import com.coderscampus.Assignment14.service.ChannelService;
 import com.coderscampus.Assignment14.service.UserService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.List;
 
 @Controller
 public class UserController {
@@ -67,21 +72,40 @@ public class UserController {
 				return "redirect:/login"; // Invalid credentials, redirect back to login
 			}
 			System.out.println("USER IS VALID");
+//			userService.setCurrentUser(validUser); // Store the user in the session
 			redirectAttributes.addAttribute("userId", validUser.getUserId());
 		}
-		return "redirect:/user/{userId}/"; // Successful login
+		return "redirect:/user/{userId}"; // Successful login
 	}
 
 	@GetMapping("/user/{userId}")
 	public String read (ModelMap model, @PathVariable Long userId) {
 		User user = userService.findById(userId);
+//		List<Channel> channels = channelService.findAll();
 		if (user == null) {
 			return "redirect:/users";
 		}
 		model.put("user", user);
 		model.put("channels", user.getChannels());
+//		model.put("channel", new Channel());
 		return "user/read";
 	}
+
+//	@PostMapping("/user/{userId}")
+//	public String postCreateChannel (@PathVariable Long userId, Channel channel) {
+//		if (channel.getChannelName().isEmpty()) {
+//			return "redirect:/user/{userId}";
+//		} else {
+//			boolean invalidChannelName = channelService.validateChannelName(channel.getChannelName());
+//			if (invalidChannelName) {
+//				System.out.println("INVALID CHANNEL NAME");
+//				return "redirect:/user/{userId}";
+//			} else {
+//				channelService.saveChannelToUser(channel, userId);
+//			}
+//		}
+//		return "redirect:/user/{userId}";
+//	}
 
 	@GetMapping("/user/{userId}/update")
 	public String update (ModelMap model, @PathVariable Long userId) {

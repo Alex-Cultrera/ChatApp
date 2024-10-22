@@ -131,45 +131,45 @@ span {
     margin-top: 0;
 }
 
-.newChannel {
-    background: white;
-    color: white;
-}
+/*.newChannel {*/
+/*    background: white;*/
+/*    color: white;*/
+/*}*/
 
-#newChannel {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 30px;
-    text-decoration: none;
-    margin-top: 0;
-    background: white;
-    color: white;
-}
+/*#newChannel {*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    align-items: center;*/
+/*    height: 30px;*/
+/*    text-decoration: none;*/
+/*    margin-top: 0;*/
+/*    background: white;*/
+/*    color: white;*/
+/*}*/
 
-#newChannel button, #newChannel button i {
-    background: blue;
-    color: white;
-    font-weight: bold;
-    border: none;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    border-radius: 10px;
-}
+/*#newChannel button, #newChannel button i {*/
+/*    background: blue;*/
+/*    color: white;*/
+/*    font-weight: bold;*/
+/*    border: none;*/
+/*    text-decoration: none;*/
+/*    display: inline-flex;*/
+/*    align-items: center;*/
+/*    border-radius: 10px;*/
+/*}*/
 
-#newChannel button {
-    padding: 10px 15px 10px 10px;
-    margin-top: 0;
-}
+/*#newChannel button {*/
+/*    padding: 10px 15px 10px 10px;*/
+/*    margin-top: 0;*/
+/*}*/
 
-#newChannel button i {
-    margin-right: 7px;
-}
+/*#newChannel button i {*/
+/*    margin-right: 7px;*/
+/*}*/
 
-#newChannel button:hover {
-    box-shadow: 0 0 5px black;
-}
+/*#newChannel button:hover {*/
+/*    box-shadow: 0 0 5px black;*/
+/*}*/
 
 .createChannel {
     margin-top: 10px;
@@ -217,4 +217,25 @@ span {
 
 #channelDrop {
     color: black;
+}
+
+#openChannelButton {
+    background: blue;
+    color: white;
+    font-weight: bold;
+    border: none;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    border-radius: 10px;
+}
+
+#openChannelButton {
+    padding: 10px 10px 10px 10px;
+    margin-top: 0;
+    margin-right: 7px;
+}
+
+#openChannelButton:hover {
+    box-shadow: 0 0 5px black;
 }
