@@ -1,39 +1,53 @@
-// const userId= document.getElementById('currentUserId').value.trim();
-// const username= document.getElementById('currentUsername').value.trim();
-// const channelId = document.getElementById('channelId').value;
-// const channelName = document.getElementById('channelName').value;
+document.addEventListener('DOMContentLoaded', () => {
 
+//  BACK BUTTON REDIRECT
+document.getElementById('backButton').addEventListener('click', () => {
+    window.location.href = `/user/${userId}`;
+});
+
+
+
+const channelId = document.getElementById('channelId').value;
+const channelName = document.getElementById('channelName').value;
+const userId= document.getElementById('userId').value;
+const username= document.getElementById('username').value.trim();
+const name= document.getElementById('user.name').value.trim();
+const messageBox = document.getElementById('messageBox');
 
 // TWO WAYS OF SENDING A MESSAGE: PRESS ENTER OR CLICK SUBMIT
-document.getElementById('submitButton').addEventListener('click', sendMessage);
+document.getElementById('submitButton').addEventListener('click', () => {
+    sendMessage(channelId, userId, messageBox.value.trim());
+});
 
 document.getElementById('messageBox').addEventListener('keydown', function(event) {
     if (event.key === 'Enter') {
         event.preventDefault(); // Prevents default behavior of a line break in the textarea
-        sendMessage();
+        sendMessage(channelId, userId, messageBox.value.trim());
     }
 });
 
 
 // FUNCTION FOR SENDING A MESSAGE
-function sendMessage() {
-    const username= document.getElementById('username').value.trim();
-    const message = document.getElementById('messageBox').value.trim();
+function sendMessage(channelId, userId, messageContent) {
+    // CREATE A MESSAGE OBJECT
+    const message = {
+        content: messageContent,
+        sender: {
+            username: username,
+            userId: userId,
+            name: name
+        },
+        channel: {
+            channelName: channelName,
+            channelId: channelId
+        }
+    };
 
     // IF USER TRIES TO SEND A BLANK MESSAGE
-    if (!message) {
+    if (!messageContent) {
         alert("Please enter a message.");
         return;
     }
-
-    // CREATE A MESSAGE OBJECT
-    const chatMessage = {
-        username: username,
-        content: message
-        // channel: {
-        //     channelId: parseInt(channelId)
-        // }
-    };
 
     // SEND MESSAGE OBJECT TO SERVER
     fetch('/api/messages', {
@@ -41,14 +55,14 @@ function sendMessage() {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify(chatMessage)
+        body: JSON.stringify(message)
     })
     .then(response => response.json())
     .then(data => {
         // UPDATE OUTPUT WITH THE NEW MESSAGE
         displayMessage(data);
         // CLEAR THE TYPE MESSAGE BOX AFTER SUBMISSION
-        document.getElementById('messageBox').value = '';
+        messageBox.value = '';
     })
     .catch(error => console.error('Error:', error));
 }
@@ -59,8 +73,12 @@ function displayMessage(message) {
     const output = document.getElementById('output');
     const formattedDate = new Date(message.messageDate).toLocaleString();
 
-    if (!document.querySelector(`.message-${message.id}`)) {
-        output.innerHTML += `<p><span class="username">${message.username}  </span><span class="timestamp">(${formattedDate}):</span>  ${message.content}</p>`;
+    if (message.sender && message.sender.username) {
+        if (!document.querySelector(`.message-${message.id}`)) {
+            output.innerHTML += `<p><span class="username">${message.sender.username}</span> <span class="timestamp">(${formattedDate}):</span>  ${message.content}</p>`;
+        } else {
+            console.error('Invalid message structure:', message);
+        }
     }
 }
 
@@ -93,8 +111,4 @@ window.onload = function () {
 
 
 
-
-
-
-
-
+});

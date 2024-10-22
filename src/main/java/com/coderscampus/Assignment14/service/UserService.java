@@ -5,6 +5,8 @@ import com.coderscampus.Assignment14.repository.UserRepository;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserService {
 
@@ -14,6 +16,10 @@ public class UserService {
     public UserService(UserRepository userRepo, HttpSession session) {
         this.userRepo = userRepo;
         this.session = session;
+    }
+
+    public List<User> findAll() {
+        return userRepo.findAll();
     }
 
     public User findById(Long userId) {
@@ -46,11 +52,4 @@ public class UserService {
         return user != null;
     }
 
-//    public User getCurrentUser() {
-//        return (User) session.getAttribute("currentUser");
-//    }
-//
-//    public void setCurrentUser(User user) {
-//        session.setAttribute("currentUser", user);
-//    }
 }

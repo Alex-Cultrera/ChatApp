@@ -109,7 +109,7 @@ button, input {
     align-items: center;
 }
 
-#output, #username, #messageBox, #submitButton {
+#output, #un, #username, #messageBox, #submitButton {
 
 }
 
@@ -118,7 +118,7 @@ button, input {
     width: 80%;
 }
 
-#username {
+#un, #username {
     background: white;
     color: blue;
     font-weight: bold;

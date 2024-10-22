@@ -8,10 +8,11 @@
     <div class="headerDiv">Channel: [[${channel.channelName}]]</div>
 </header>
 
-<!--<input type="hidden" id="currentUserId" th:value="${user.userId}" />-->
-<!--<input type="hidden" id="currentUsername" th:value="${user.username}" />-->
-<!--<input type="hidden" id="channelId" th:value="${channel.channelId}" />-->
-<!--<input type="hidden" id="channelName" th:value="${channel.channelName}" />-->
+<input type="hidden" id="userId" th:value="${user.userId}" />
+<input type="hidden" id="user.name" th:value="${user.name}" />
+<input type="hidden" id="username" th:value="${user.username}" />
+<input type="hidden" id="channelId" th:value="${channel.channelId}" />
+<input type="hidden" id="channelName" th:value="${channel.channelName}" />
 
 <main>
     <div class="chatRoom">
@@ -24,17 +25,17 @@
 <!--                </p>-->
 <!--            </div>-->
         </div>
-        <input type="text" id="username" th:value="${user.username}" readonly />
+        <input type="text" id="un" th:value="${user.username}" readonly />
         <textarea id="messageBox" placeholder="Type your message here..."></textarea>
         <br>
         <button id="submitButton">Submit</button>
     </div>
     <div class="buttons">
         <br>
-        <a class="left" id="back" th:href="@{/user/{userId}(userId=${user.userId})}">
-            <button>Back</button>
+        <a class="left" id="back">
+            <button id="backButton">Back</button>
         </a>
-        <form class="right" id="delete" th:action="@{/channel/{channelId}/delete channelId=${channel.channelId}}" method="post">
+        <form class="right" id="delete">
             <div id="deleteChannel">
                 <input type="submit" value="Delete Channel"/>
             </div>

@@ -43,6 +43,8 @@ public class MessageController {
 	@ResponseBody
 	public ResponseEntity<Message> postSend (@RequestBody Message message) {
 		message.setMessageDate(LocalDateTime.now());
+		Channel existingChannel = channelService.findById(message.getChannel().getChannelId());
+		messageService.findByChannelId(existingChannel.getChannelId()).add(message);
 		Message savedMessage = messageService.save(message);
 		return ResponseEntity.ok(savedMessage);
 	}

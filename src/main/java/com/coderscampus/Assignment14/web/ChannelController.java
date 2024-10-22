@@ -1,7 +1,6 @@
 package com.coderscampus.Assignment14.web;
 
 import com.coderscampus.Assignment14.domain.Channel;
-import com.coderscampus.Assignment14.domain.Message;
 import com.coderscampus.Assignment14.domain.User;
 import com.coderscampus.Assignment14.service.ChannelService;
 import com.coderscampus.Assignment14.service.MessageService;
@@ -27,39 +26,6 @@ public class ChannelController {
 		this.messageService = messageService;
 	}
 
-//	@GetMapping("/channel/{channelId}")
-//	public String read (ModelMap model, @PathVariable Long channelId) {
-//		Channel channel = channelService.findById(channelId);
-//		if (channel == null) {
-//			return "redirect:/user/{userId}";
-//		}
-//		List<Message> messages = messageService.findByChannelId(channelId);
-//		User currentUser = userService.getCurrentUser();
-//
-//
-//		model.put("channel", channel);
-//		model.put("messages", messages);
-//		model.put("user", currentUser);
-//		return "channel/read";
-//	}
-
-
-
-//	@PostMapping("/api/channels")
-//	@ResponseBody
-//	public ResponseEntity<Channel> create (@RequestBody Channel channel) {
-//		Channel createdChannel = channelService.save(channel);
-//		return ResponseEntity.status(HttpStatus.CREATED).body(createdChannel);
-//	}
-
-//	@GetMapping("/api/channels")
-//	@ResponseBody
-//	public ResponseEntity<List<Channel>> getAllChannels () {
-//		User currentUser = userService.getCurrentUser();
-//		List<Channel> channels = channelService.findAll();
-//		return ResponseEntity.ok(channels);
-//	}
-
 	@GetMapping("/user/{userId}/channel/{channelId}")
 	public String read (ModelMap model, @PathVariable Long userId, @PathVariable Long channelId) {
 		User user = userService.findById(userId);
@@ -72,8 +38,9 @@ public class ChannelController {
 	@PostMapping("/api/channels")
 	@ResponseBody
 	public ResponseEntity<Channel> create (@RequestBody Channel channel) {
-		User user = channel.getCreatedBy();
-		Channel createdChannel = channelService.createChannel(channel, user);
+		User user = userService.findById(channel.getCreatedBy().getUserId());
+		List<User> users = userService.findAll();
+		Channel createdChannel = channelService.createChannel(channel, users);
 		return ResponseEntity.status(HttpStatus.CREATED).body(createdChannel);
 	}
 

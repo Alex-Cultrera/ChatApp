@@ -22,14 +22,6 @@ public class ChannelService {
         this.userRepo = userRepo;
     }
 
-//    public void saveChannelToUser(Channel channel, Long userId) {
-//        User existingUser = userService.findById(userId);
-//        channel.getUsers().add(existingUser);
-//        existingUser.getChannels().add(channel);
-//        channelRepo.save(channel);
-//        userService.save(existingUser);
-//    }
-
     public void createDefaultUserChannels(User user) {
         Channel defaultChannel = new Channel();
         defaultChannel.setChannelName("General");
@@ -38,11 +30,13 @@ public class ChannelService {
         channelRepo.save(defaultChannel);
     }
 
-    public Channel createChannel(Channel channel, User user) {
+    public Channel createChannel(Channel channel, List<User> users) {
         Channel newChannel = new Channel();
         newChannel.setChannelName(channel.getChannelName());
-        newChannel.getUsers().add(user);
-        user.getChannels().add(newChannel);
+        newChannel.setUsers(users);
+        for (User user : users) {
+            user.getChannels().add(newChannel);
+        }
         return channelRepo.save(newChannel);
     }
 

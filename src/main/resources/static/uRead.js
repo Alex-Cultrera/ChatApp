@@ -23,9 +23,11 @@ function createChannel() {
 
     const channel = {
         channelName: channelName,
-        createdBy: { userId: userId,
-                     username: username,
-                     name: name}
+        createdBy: {
+            userId: userId,
+            username: username,
+            name: name
+        }
     };
 
 
@@ -70,7 +72,7 @@ function fetchChannels() {
         .then(response => response.json())
         .then(channels => {
             const channelSelect = document.getElementById('channelSelect');
-            // channelSelect.innerHTML = '';
+            channelSelect.innerHTML = '';
 
             channels.forEach(channel => {
                 const option = document.createElement('option');
