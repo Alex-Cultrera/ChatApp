@@ -34,8 +34,9 @@ public class MessageController {
 		Channel existingChannel = channelService.findById(message.getChannel().getChannelId());
 		List<Message> channelMessages = existingChannel.getMessages();
 		channelMessages.add(newMessage);
-		channelService.save(existingChannel);
+		existingChannel.setMessages(channelMessages);
 		messageService.save(newMessage);
+		channelService.save(existingChannel);
 		System.out.println(newMessage);
 		return ResponseEntity.ok(newMessage);
 	}

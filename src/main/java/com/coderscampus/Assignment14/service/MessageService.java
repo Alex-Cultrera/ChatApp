@@ -21,9 +21,9 @@ public class MessageService {
         this.channelService = channelService;
     }
 
-    public Message save(Message message) {
+    public void save(Message message) {
         System.out.println("Saving message: " + message);
-        return messageRepo.save(message);
+        messageRepo.save(message);
     }
 
     public List<Message> findAll() {

@@ -68,25 +68,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 // FUNCTION TO DISPLAY A MESSAGE
-    function displayMessage(message) {
-        const output = document.getElementById('output');
-        const formattedDate = new Date(message.messageDate).toLocaleString();
+function displayMessage(message) {
+    const output = document.getElementById('output');
+    const formattedDate = new Date(message.messageDate).toLocaleString();
 
-        if (message.sender && message.sender.username) {
-            if (!document.querySelector(`.message-${message.messageId}`)) {
-                output.innerHTML += `
-                <p class="message-${message.messageId}">
-                    <span class="username">${message.sender.username}</span> 
-                    <span class="timestamp">(${formattedDate}): </span>  
-                    ${message.content}
-                </p>`;
-            } else {
-                console.error('Invalid message structure:', message);
-            }
-        } else {
-            console.error('Invalid message structure:', message);
-        }
-    }
+    output.innerHTML += `
+    <p>
+        <span class="username">${message.sender.username}</span> 
+        <span class="timestamp">(${formattedDate}): </span>  
+        ${message.content}
+    </p>`;
+}
 
 
 // FUNCTION TO FETCH ALL STORED MESSAGES FROM THE SERVER
@@ -104,7 +96,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 // CLEAR THE CURRENT OUTPUT AND DISPLAY ALL MESSAGES
                 const output = document.getElementById('output');
                 output.innerHTML = '';
-                messages.forEach(displayMessage);
+                for (const message of messages) {
+                    console.log('hi')
+                    displayMessage(message);
+                }
             })
             .catch(error => console.error('Error fetching messages:', error))
     }

@@ -19,7 +19,7 @@ public class Channel {
     private User createdBy;
     @ManyToMany(mappedBy = "channels")
     private List<User> users = new ArrayList<>();
-    @OneToMany(mappedBy = "channel")
+    @OneToMany(mappedBy = "channel", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Message> messages = new ArrayList<>();
 
 
