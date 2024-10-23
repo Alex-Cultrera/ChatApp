@@ -16,15 +16,7 @@
 
 <main>
     <div class="chatRoom">
-        <div id="output">
-<!--            <div th:each="message : ${channel.messages}">-->
-<!--                <p>-->
-<!--                    <span class="username" th:text="${message.username}"></span>-->
-<!--                    <span class="timestamp" th:text="${#dates.format(message.messageDate, 'yyyy-MM-dd HH:mm')}"></span>:-->
-<!--                    <span th:text="${message.content}"></span>-->
-<!--                </p>-->
-<!--            </div>-->
-        </div>
+        <div id="output"></div>
         <input type="text" id="un" th:value="${user.username}" readonly />
         <textarea id="messageBox" placeholder="Type your message here..."></textarea>
         <br>

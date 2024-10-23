@@ -15,7 +15,7 @@ public class Channel {
     @Column(length = 100)
     private String channelName;
     @ManyToOne
-    @JoinColumn(name="user_id")
+    @JoinColumn(name="creator_id")
     private User createdBy;
     @ManyToMany(mappedBy = "channels")
     private List<User> users = new ArrayList<>();

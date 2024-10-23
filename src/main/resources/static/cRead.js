@@ -91,9 +91,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // FUNCTION TO FETCH ALL STORED MESSAGES FROM THE SERVER
     function fetchMessages() {
+        console.log('Fetching messages for channelId:', channelId);
         fetch(`/api/messages?channelId=${channelId}`)
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
             .then(messages => {
+                console.log('Fetched messages:', messages);
                 // CLEAR THE CURRENT OUTPUT AND DISPLAY ALL MESSAGES
                 const output = document.getElementById('output');
                 output.innerHTML = '';

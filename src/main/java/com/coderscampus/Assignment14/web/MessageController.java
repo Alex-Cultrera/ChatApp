@@ -22,31 +22,28 @@ public class MessageController {
 		this.channelService = channelService;
 	}
 
-//	@PostMapping("/api/messages")
-//	@ResponseBody
-//	public ResponseEntity<Message> postSend (@RequestBody Message message) {
-//		message.setMessageDate(LocalDateTime.now());
-//		Channel channel = message.getChannel();
-//		message.setChannel(channel);
-//		Message savedMessage = messageService.save(message);
-//		return ResponseEntity.ok(savedMessage);
-//	}
-
 	@PostMapping("/api/messages")
 	@ResponseBody
 	public ResponseEntity<Message> postSend (@RequestBody Message message) {
-		message.setMessageDate(LocalDateTime.now());
+		Message newMessage = new Message();
+		newMessage.setContent(message.getContent());
+		newMessage.setMessageDate(LocalDateTime.now());
+		newMessage.setSender(message.getSender());
+		newMessage.setChannel(message.getChannel());
+
 		Channel existingChannel = channelService.findById(message.getChannel().getChannelId());
-		List<Message> messages = messageService.findByChannelId(existingChannel.getChannelId());
-		messages.add(message);
+		List<Message> channelMessages = existingChannel.getMessages();
+		channelMessages.add(newMessage);
 		channelService.save(existingChannel);
-		Message savedMessage = messageService.save(message);
-		return ResponseEntity.ok(savedMessage);
+		messageService.save(newMessage);
+		System.out.println(newMessage);
+		return ResponseEntity.ok(newMessage);
 	}
 
 	@GetMapping("/api/messages")
 	public ResponseEntity<List<Message>> getMessages(@RequestParam Long channelId) {
-		List<Message> messages = messageService.findByChannelId(channelId);
+		Channel theChannel = channelService.findById(channelId);
+		List<Message> messages = theChannel.getMessages();
 		return ResponseEntity.ok(messages);
 	}
 
