@@ -41,6 +41,7 @@ public class UserController {
 				return "redirect:/register";
 			} else {
 				channelService.createDefaultUserChannels(user);
+				channelService.getAllChannels(user);
 				userService.save(user);
 			}
 		}
@@ -81,31 +82,13 @@ public class UserController {
 	@GetMapping("/user/{userId}")
 	public String read (ModelMap model, @PathVariable Long userId) {
 		User user = userService.findById(userId);
-//		List<Channel> channels = channelService.findAll();
 		if (user == null) {
 			return "redirect:/users";
 		}
 		model.put("user", user);
 		model.put("channels", user.getChannels());
-//		model.put("channel", new Channel());
 		return "user/read";
 	}
-
-//	@PostMapping("/user/{userId}")
-//	public String postCreateChannel (@PathVariable Long userId, Channel channel) {
-//		if (channel.getChannelName().isEmpty()) {
-//			return "redirect:/user/{userId}";
-//		} else {
-//			boolean invalidChannelName = channelService.validateChannelName(channel.getChannelName());
-//			if (invalidChannelName) {
-//				System.out.println("INVALID CHANNEL NAME");
-//				return "redirect:/user/{userId}";
-//			} else {
-//				channelService.saveChannelToUser(channel, userId);
-//			}
-//		}
-//		return "redirect:/user/{userId}";
-//	}
 
 	@GetMapping("/user/{userId}/update")
 	public String update (ModelMap model, @PathVariable Long userId) {

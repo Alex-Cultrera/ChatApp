@@ -21,6 +21,14 @@ function createChannel() {
         return;
     }
 
+    if (channelName) {
+        checkIfChannelNameExists(channelName).then(channelNameExists => {
+            if (channelNameExists) {
+                window.location.href = `/user/${userId}`;
+            }
+        })
+    }
+
     const channel = {
         channelName: channelName,
         createdBy: {
@@ -54,6 +62,32 @@ function createChannel() {
         })
         .catch(error => console.error('Error creating channel:', error));
 }
+
+
+// FUNCTION TO CHECK IF CHANNEL NAME ALREADY EXISTS
+function checkIfChannelNameExists (channelName) {
+    return fetch('/channel/exists', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({channelName: channelName})
+    })
+        .then((responseEntity) => responseEntity.json())
+        .then((data) => {
+            if (data === true) {
+                alert("Channel Name already exists. Choose a different Channel Name.")
+                return true;
+            } else {
+                return false;
+            }
+        })
+        .catch(error => {
+            console.log(error);
+            return false;
+        })
+}
+
 
 
 // FUNCTION TO ADD CHANNEL TO DROPDOWN MENU

@@ -30,6 +30,18 @@ public class ChannelService {
         channelRepo.save(defaultChannel);
     }
 
+    public void getAllChannels(User user) {
+        List<Channel> allChannels = channelRepo.findAll();
+        for (Channel channel : allChannels) {
+            if (channel.getChannelName().equals("General")) {
+                continue;
+            }
+            channel.getUsers().add(user);
+            user.getChannels().add(channel);
+            channelRepo.save(channel);
+        }
+    }
+
     public Channel createChannel(Channel channel, List<User> users) {
         Channel newChannel = new Channel();
         newChannel.setChannelName(channel.getChannelName());
@@ -58,4 +70,7 @@ public class ChannelService {
         return channel != null;
     }
 
+    public Channel findByChannelName(String channelName) {
+        return channelRepo.findByChannelName(channelName);
+    }
 }

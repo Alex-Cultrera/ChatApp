@@ -23,6 +23,10 @@ public class User {
     private List<Channel> channels = new ArrayList<>();
     @OneToMany(mappedBy = "sender")
     private List<Message> messages = new ArrayList<>();
+    @OneToMany(mappedBy = "createdBy")
+    private List<Channel> createdChannels = new ArrayList<>();
+
+
 
     public Long getUserId() {
         return userId;
@@ -72,17 +76,25 @@ public class User {
         this.messages = messages;
     }
 
+    public List<Channel> getCreatedChannels() {
+        return createdChannels;
+    }
+
+    public void setCreatedChannels(List<Channel> createdChannels) {
+        this.createdChannels = createdChannels;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(userId, user.userId) && Objects.equals(username, user.username) && Objects.equals(password, user.password) && Objects.equals(name, user.name) && Objects.equals(channels, user.channels) && Objects.equals(messages, user.messages);
+        return Objects.equals(userId, user.userId) && Objects.equals(username, user.username) && Objects.equals(password, user.password) && Objects.equals(name, user.name) && Objects.equals(channels, user.channels) && Objects.equals(messages, user.messages) && Objects.equals(createdChannels, user.createdChannels);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(userId, username, password, name, channels, messages);
+        return Objects.hash(userId, username, password, name, channels, messages, createdChannels);
     }
 
     @Override
@@ -94,6 +106,7 @@ public class User {
                 ", name='" + name + '\'' +
                 ", channels=" + channels +
                 ", messages=" + messages +
+                ", createdChannels=" + createdChannels +
                 '}';
     }
 }

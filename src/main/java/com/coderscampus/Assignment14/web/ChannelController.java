@@ -26,8 +26,15 @@ public class ChannelController {
 		this.messageService = messageService;
 	}
 
+	@PostMapping("/channel/exists")
+	@ResponseBody
+	public Boolean postExists(@RequestBody Channel channel) {
+		Channel potentialChannel = channelService.findByChannelName(channel.getChannelName());
+		return (potentialChannel != null);
+	}
+
 	@GetMapping("/user/{userId}/channel/{channelId}")
-	public String read (ModelMap model, @PathVariable Long userId, @PathVariable Long channelId) {
+	public String read(ModelMap model, @PathVariable Long userId, @PathVariable Long channelId) {
 		User user = userService.findById(userId);
 		Channel channel = channelService.findById(channelId);
 		model.put("user", user);
@@ -37,19 +44,28 @@ public class ChannelController {
 
 	@PostMapping("/api/channels")
 	@ResponseBody
-	public ResponseEntity<Channel> create (@RequestBody Channel channel) {
-		User user = userService.findById(channel.getCreatedBy().getUserId());
-		List<User> users = userService.findAll();
-		Channel createdChannel = channelService.createChannel(channel, users);
-		return ResponseEntity.status(HttpStatus.CREATED).body(createdChannel);
+	public ResponseEntity<Channel> create(@RequestBody Channel channel) {
+		if (channel.getChannelName().isEmpty()) {
+			return null;
+		} else {
+			boolean invalidChannelName = channelService.validateChannelName(channel.getChannelName());
+			if (invalidChannelName) {
+				System.out.println("INVALID CHANNEL NAME");
+				return null;
+			} else {
+				List<User> users = userService.findAll();
+				Channel createdChannel = channelService.createChannel(channel, users);
+				createdChannel.setCreatedBy(channel.getCreatedBy());
+				return ResponseEntity.status(HttpStatus.CREATED).body(createdChannel);
+			}
+		}
 	}
 
 	@GetMapping("/api/channels")
 	@ResponseBody
-	public ResponseEntity<List<Channel>> getAllChannels () {
+	public ResponseEntity<List<Channel>> getAllChannels() {
 		List<Channel> channels = channelService.findAll();
 		return ResponseEntity.ok(channels);
 	}
 
 }
-

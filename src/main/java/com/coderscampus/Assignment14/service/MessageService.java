@@ -31,8 +31,7 @@ public class MessageService {
     }
 
     public List<Message> findByChannelId(Long channelId) {
-        Channel channel;
-        channel = channelRepository.findById(channelId).orElse(null);
+        Channel channel = channelRepository.findById(channelId).orElse(null);
         return messageRepo.findByChannelOrderByMessageDateAsc(channel);
     }
 }

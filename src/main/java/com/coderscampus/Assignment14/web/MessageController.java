@@ -31,27 +31,22 @@ public class MessageController {
 //		Message savedMessage = messageService.save(message);
 //		return ResponseEntity.ok(savedMessage);
 //	}
-//	@GetMapping("/api/messages")
-//	@ResponseBody
-//	public ResponseEntity<List<Message>> getMessages(@RequestParam Long channelId) {
-//		List<Message> messages = messageService.findByChannelId(channelId);
-//		return ResponseEntity.ok(messages);
-//	}
-
 
 	@PostMapping("/api/messages")
 	@ResponseBody
 	public ResponseEntity<Message> postSend (@RequestBody Message message) {
 		message.setMessageDate(LocalDateTime.now());
 		Channel existingChannel = channelService.findById(message.getChannel().getChannelId());
-		messageService.findByChannelId(existingChannel.getChannelId()).add(message);
+		List<Message> messages = messageService.findByChannelId(existingChannel.getChannelId());
+		messages.add(message);
+		channelService.save(existingChannel);
 		Message savedMessage = messageService.save(message);
 		return ResponseEntity.ok(savedMessage);
 	}
 
 	@GetMapping("/api/messages")
-	public ResponseEntity<List<Message>> getMessages() {
-		List<Message> messages = messageService.findAll();
+	public ResponseEntity<List<Message>> getMessages(@RequestParam Long channelId) {
+		List<Message> messages = messageService.findByChannelId(channelId);
 		return ResponseEntity.ok(messages);
 	}
 
