@@ -45,6 +45,7 @@ public class MessageController {
 	public ResponseEntity<List<Message>> getMessages(@RequestParam Long channelId) {
 		Channel theChannel = channelService.findById(channelId);
 		List<Message> messages = theChannel.getMessages();
+
 		return ResponseEntity.ok(messages);
 	}
 

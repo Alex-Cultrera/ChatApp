@@ -56,13 +56,17 @@ public class ChannelService {
         return channelRepo.findAll();
     }
 
+//    public Channel findById(Long channelId) {
+//        Optional<Channel> channelOpt = channelRepo.findById(channelId);
+//        return channelOpt.orElse(new Channel());
+//    }
+
     public Channel findById(Long channelId) {
-        Optional<Channel> channelOpt = channelRepo.findById(channelId);
-        return channelOpt.orElse(new Channel());
+        return channelRepo.findChannelByChannelId(channelId);
     }
 
-    public Channel save(Channel channel) {
-        return channelRepo.save(channel);
+    public void save(Channel channel) {
+        channelRepo.save(channel);
     }
 
     public boolean validateChannelName(String channelName) {

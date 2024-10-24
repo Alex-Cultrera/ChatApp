@@ -16,7 +16,7 @@ public class Message {
     @Column(length = 625)
     private String content;
     @ManyToOne
-    @JoinColumn(name="sender_id")
+    @JoinColumn(name="user_id")
     private User sender;
     @ManyToOne
     @JoinColumn(name="channel_id")

@@ -15,11 +15,11 @@ public class Channel {
     @Column(length = 100)
     private String channelName;
     @ManyToOne
-    @JoinColumn(name="creator_id")
+    @JoinColumn(name="user_id")
     private User createdBy;
     @ManyToMany(mappedBy = "channels")
     private List<User> users = new ArrayList<>();
-    @OneToMany(mappedBy = "channel", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "channel")
     private List<Message> messages = new ArrayList<>();
 
 
