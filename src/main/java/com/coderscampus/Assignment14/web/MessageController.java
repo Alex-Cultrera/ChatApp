@@ -23,7 +23,7 @@ public class MessageController {
 	private final MessageService messageService;
 	private final ChannelService channelService;
 	private final UserService userService;
-	private Long i = 0L;
+	private Long i = 1L;
 
 	public MessageController(MessageService messageService, ChannelService channelService, UserService userService) {
 		this.messageService = messageService;
