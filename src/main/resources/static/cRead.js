@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const channelId = document.getElementById('channelId').value;
     const channelName = document.getElementById('channelName').value;
     const userId = document.getElementById('userId').value;
-    const username = document.getElementById('username').value.trim();
+    const userName = document.getElementById('username').value.trim();
     const name = document.getElementById('user.name').value.trim();
     const messageBox = document.getElementById('messageBox');
 
@@ -29,16 +29,16 @@ document.addEventListener('DOMContentLoaded', () => {
 // FUNCTION FOR SENDING A MESSAGE
     function sendMessage(channelId, userId, messageContent) {
         // CREATE A MESSAGE OBJECT
-        const message = {
+        const messageDtoInput = {
             content: messageContent,
             sender: {
-                username: username,
                 userId: userId,
+                username: userName,
                 name: name
             },
             channel: {
-                channelName: channelName,
-                channelId: channelId
+                channelId: channelId,
+                channelName: channelName
             }
         };
 
@@ -54,10 +54,11 @@ document.addEventListener('DOMContentLoaded', () => {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(message)
+            body: JSON.stringify(messageDtoInput)
         })
             .then(response => response.json())
             .then(data => {
+                console.log('Message sent successfully:', data);
                 // UPDATE OUTPUT WITH THE NEW MESSAGE
                 displayMessage(data);
                 // CLEAR THE TYPE MESSAGE BOX AFTER SUBMISSION
@@ -72,6 +73,11 @@ function displayMessage(message) {
     const output = document.getElementById('output');
     const formattedDate = new Date(message.messageDate).toLocaleString();
 
+    if (!message.sender) {
+        console.error('Sender is undefined', message);
+        return; // Exit the function early
+    }
+
     output.innerHTML += `
     <p>
         <span class="username">${message.sender.username}</span> 
@@ -85,18 +91,13 @@ function displayMessage(message) {
     function fetchMessages() {
         console.log('Fetching messages for channelId:', channelId);
         fetch(`/api/messages?channelId=${channelId}`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(messages => {
-                console.log('Fetched messages:', messages);
+            .then(response => response.json())
+            .then(allMessages => {
+                console.log('Fetched messages:', allMessages);
                 // CLEAR THE CURRENT OUTPUT AND DISPLAY ALL MESSAGES
                 const output = document.getElementById('output');
                 output.innerHTML = '';
-                for (const message of messages) {
+                for (const message of allMessages) {
                     console.log('hi')
                     displayMessage(message);
                 }
@@ -112,7 +113,6 @@ function displayMessage(message) {
 
 
 // POLL FOR NEW MESSAGES EVERY 500 MILLISECONDS (NOT IDEAL / CPU INTENSIVE)
-// setInterval(fetchMessages, 500);
-
+setInterval(fetchMessages, 500);
 
 })

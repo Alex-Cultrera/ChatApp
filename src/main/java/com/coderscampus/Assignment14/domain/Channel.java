@@ -1,5 +1,6 @@
 package com.coderscampus.Assignment14.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -68,9 +69,6 @@ public class Channel {
         return "Channel{" +
                 "channelId=" + channelId +
                 ", channelName='" + channelName + '\'' +
-                ", createdBy=" + createdBy +
-                ", users=" + users +
-                ", messages=" + messages +
                 '}';
     }
 

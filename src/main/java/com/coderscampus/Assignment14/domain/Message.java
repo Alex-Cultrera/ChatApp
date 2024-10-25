@@ -1,6 +1,7 @@
 package com.coderscampus.Assignment14.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;

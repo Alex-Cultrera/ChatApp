@@ -2,7 +2,6 @@ package com.coderscampus.Assignment14.service;
 
 import com.coderscampus.Assignment14.domain.User;
 import com.coderscampus.Assignment14.repository.UserRepository;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,11 +10,9 @@ import java.util.List;
 public class UserService {
 
     private final UserRepository userRepo;
-    private final HttpSession session;
 
-    public UserService(UserRepository userRepo, HttpSession session) {
+    public UserService(UserRepository userRepo) {
         this.userRepo = userRepo;
-        this.session = session;
     }
 
     public List<User> findAll() {

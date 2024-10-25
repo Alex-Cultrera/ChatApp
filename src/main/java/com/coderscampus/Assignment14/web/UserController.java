@@ -1,17 +1,12 @@
 package com.coderscampus.Assignment14.web;
 
-import com.coderscampus.Assignment14.domain.Channel;
 import com.coderscampus.Assignment14.domain.User;
 import com.coderscampus.Assignment14.service.ChannelService;
 import com.coderscampus.Assignment14.service.UserService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.util.List;
 
 @Controller
 public class UserController {
@@ -40,9 +35,13 @@ public class UserController {
 				System.out.println("INVALID USERNAME");
 				return "redirect:/register";
 			} else {
-				channelService.createDefaultUserChannels(user);
-				channelService.getAllChannels(user);
-				userService.save(user);
+				if (userService.findAll().isEmpty()) {
+					channelService.createDefaultUserChannels(user);
+					userService.save(user);
+				} else {
+					channelService.getAllChannels(user);
+					userService.save(user);
+				}
 			}
 		}
 		return "redirect:/login";
@@ -70,13 +69,12 @@ public class UserController {
 			User validUser = userService.findByUsername(user.getUsername());
 			if (validUser == null || !validUser.getPassword().equals(user.getPassword())) {
 				System.out.println("NOT A VALID USER");
-				return "redirect:/login"; // Invalid credentials, redirect back to login
+				return "redirect:/login";
 			}
 			System.out.println("USER IS VALID");
-//			userService.setCurrentUser(validUser); // Store the user in the session
 			redirectAttributes.addAttribute("userId", validUser.getUserId());
 		}
-		return "redirect:/user/{userId}"; // Successful login
+		return "redirect:/user/{userId}";
 	}
 
 	@GetMapping("/user/{userId}")

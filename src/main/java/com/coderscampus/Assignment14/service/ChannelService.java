@@ -3,23 +3,17 @@ package com.coderscampus.Assignment14.service;
 import com.coderscampus.Assignment14.domain.Channel;
 import com.coderscampus.Assignment14.domain.User;
 import com.coderscampus.Assignment14.repository.ChannelRepository;
-import com.coderscampus.Assignment14.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ChannelService {
 
     private final ChannelRepository channelRepo;
-    private final UserService userService;
-    private final UserRepository userRepo;
 
-    public ChannelService(ChannelRepository channelRepo, UserService userService, UserRepository userRepo) {
+    public ChannelService(ChannelRepository channelRepo) {
         this.channelRepo = channelRepo;
-        this.userService = userService;
-        this.userRepo = userRepo;
     }
 
     public void createDefaultUserChannels(User user) {
@@ -33,9 +27,6 @@ public class ChannelService {
     public void getAllChannels(User user) {
         List<Channel> allChannels = channelRepo.findAll();
         for (Channel channel : allChannels) {
-            if (channel.getChannelName().equals("General")) {
-                continue;
-            }
             channel.getUsers().add(user);
             user.getChannels().add(channel);
             channelRepo.save(channel);
@@ -56,17 +47,8 @@ public class ChannelService {
         return channelRepo.findAll();
     }
 
-//    public Channel findById(Long channelId) {
-//        Optional<Channel> channelOpt = channelRepo.findById(channelId);
-//        return channelOpt.orElse(new Channel());
-//    }
-
     public Channel findById(Long channelId) {
         return channelRepo.findChannelByChannelId(channelId);
-    }
-
-    public void save(Channel channel) {
-        channelRepo.save(channel);
     }
 
     public boolean validateChannelName(String channelName) {

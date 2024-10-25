@@ -1,5 +1,6 @@
 package com.coderscampus.Assignment14.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -104,9 +105,6 @@ public class User {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", name='" + name + '\'' +
-                ", channels=" + channels +
-                ", messages=" + messages +
-                ", createdChannels=" + createdChannels +
                 '}';
     }
 }

@@ -3,7 +3,6 @@ package com.coderscampus.Assignment14.web;
 import com.coderscampus.Assignment14.domain.Channel;
 import com.coderscampus.Assignment14.domain.User;
 import com.coderscampus.Assignment14.service.ChannelService;
-import com.coderscampus.Assignment14.service.MessageService;
 import com.coderscampus.Assignment14.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,12 +17,10 @@ public class ChannelController {
 
 	private final UserService userService;
 	private final ChannelService channelService;
-	private final MessageService messageService;
 
-	public ChannelController(UserService userService, ChannelService channelService, MessageService messageService) {
+	public ChannelController(UserService userService, ChannelService channelService) {
 		this.userService = userService;
 		this.channelService = channelService;
-		this.messageService = messageService;
 	}
 
 	@PostMapping("/channel/exists")
