@@ -1,3 +1,13 @@
+// FUNCTION TO REDIRECT USER TO LOGIN PAGE IF OPENING NEW TAB/WINDOW
+function redirectToLogin() {
+    const mySessionData = JSON.parse(sessionStorage.getItem("user"));
+    if (!mySessionData) {
+        alert("Session ended. Please login again.")
+        window.location.href = `/login`;
+    }
+}
+
+redirectToLogin();
 
 // REDIRECT USER TO LOGIN PAGE WHEN CLICKING SIGN OUT BUTTON
 const button = document.querySelector("#signOutButton")
@@ -139,3 +149,4 @@ function openChannel() {
     // REDIRECT TO THE SELECTED CHANNEL
     window.location.href = `/user/${userId}/channel/${selectedChannelId}`;
 }
+
