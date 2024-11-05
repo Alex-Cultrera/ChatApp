@@ -1,12 +1,7 @@
-package com.coderscampus.Assignment14.dto;
+package com.codercultrera.ChatApp.dto;
 
-
-import com.coderscampus.Assignment14.domain.Channel;
-import com.coderscampus.Assignment14.domain.User;
-import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 
 public class MessageDTO {

@@ -1,10 +1,10 @@
-package com.coderscampus.Assignment14;
+package com.codercultrera.ChatApp;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class Assignment14ApplicationTests {
+class ChatAppApplicationTests {
 
 	@Test
 	void contextLoads() {

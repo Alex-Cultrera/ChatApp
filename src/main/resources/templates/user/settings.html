@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <title>User</title>
-    <link href="/uUpdate.css" type="text/css" rel="stylesheet" />
+    <link href="/settings.css" type="text/css" rel="stylesheet" />
     <script src="https://kit.fontawesome.com/38d88a400f.js" crossorigin="anonymous"></script>
 </head>
 <header>
@@ -15,7 +15,7 @@
     <h2>
         Personal Information
     </h2>
-    <form th:action="@{/user/{userId}/update(userId=${user.userId})}" method="post">
+    <form th:action="@{/user/{userId}/settings(userId=${user.userId})}" method="post">
         <div>
             Username: <input type="text" th:field="${user.username}"/>
         </div>
@@ -44,7 +44,7 @@
     </div>
 
 </main>
-<script type="text/javascript" src="/uUpdate.js"></script>
+<script type="text/javascript" src="/settings.js"></script>
 </body>
 </html>
 

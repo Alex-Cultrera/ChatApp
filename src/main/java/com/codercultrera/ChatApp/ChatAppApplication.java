@@ -1,13 +1,13 @@
-package com.coderscampus.Assignment14;
+package com.codercultrera.ChatApp;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Assignment14Application {
+public class ChatAppApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(Assignment14Application.class, args);
+		SpringApplication.run(ChatAppApplication.class, args);
 	}
 
 }

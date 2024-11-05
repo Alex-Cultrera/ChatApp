@@ -2,14 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Main Dashboard</title>
-    <link href="/uRead.css" type="text/css" rel="stylesheet" />
+    <link href="/dashboard.css" type="text/css" rel="stylesheet" />
     <script src="https://kit.fontawesome.com/38d88a400f.js" crossorigin="anonymous"></script>
 </head>
 
 <header>
     <div class="left-item"><p id="users">Welcome to ChatApp, [[${user.name}]]!</p></div>
     <div class="right-items">
-        <div class="right-item"><a class="editUserProfile" th:href="@{/user/{userId}/update(userId=${user.userId})}"><i id="editUserProfile" class="fa-regular fa-user fa-xl"></i></a></div>
+        <div class="right-item"><a class="editUserProfile" th:href="@{/user/{userId}/settings(userId=${user.userId})}"><i id="editUserProfile" class="fa-regular fa-user fa-xl"></i></a></div>
         <div class="right-item"><input type="button" value="Sign Out" id="signOutButton"/></div>
     </div>
 </header>
@@ -41,7 +41,7 @@
     </div>
 </div>
 
-<script type="text/javascript" src="/uRead.js"></script>
+<script type="text/javascript" src="/dashboard.js"></script>
 </body>
 </html>
 

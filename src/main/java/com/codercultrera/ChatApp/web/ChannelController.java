@@ -1,9 +1,10 @@
-package com.coderscampus.Assignment14.web;
+package com.codercultrera.ChatApp.web;
 
-import com.coderscampus.Assignment14.domain.Channel;
-import com.coderscampus.Assignment14.domain.User;
-import com.coderscampus.Assignment14.service.ChannelService;
-import com.coderscampus.Assignment14.service.UserService;
+import com.codercultrera.ChatApp.domain.Channel;
+import com.codercultrera.ChatApp.domain.User;
+import com.codercultrera.ChatApp.service.ChannelService;
+import com.codercultrera.ChatApp.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Slf4j
 @Controller
 public class ChannelController {
 
@@ -36,7 +38,7 @@ public class ChannelController {
 		Channel channel = channelService.findById(channelId);
 		model.put("user", user);
 		model.put("channel", channel);
-		return "channel/read";
+		return "user/channel";
 	}
 
 	@PostMapping("/api/channels")
@@ -47,7 +49,7 @@ public class ChannelController {
 		} else {
 			boolean invalidChannelName = channelService.validateChannelName(channel.getChannelName());
 			if (invalidChannelName) {
-				System.out.println("INVALID CHANNEL NAME");
+				log.error("The channel name {} already exists", channel.getChannelName());
 				return null;
 			} else {
 				List<User> users = userService.findAll();

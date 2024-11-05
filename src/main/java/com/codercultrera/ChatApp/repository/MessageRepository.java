@@ -1,7 +1,7 @@
-package com.coderscampus.Assignment14.repository;
+package com.codercultrera.ChatApp.repository;
 
-import com.coderscampus.Assignment14.domain.Channel;
-import com.coderscampus.Assignment14.domain.Message;
+import com.codercultrera.ChatApp.domain.Channel;
+import com.codercultrera.ChatApp.domain.Message;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.coderscampus</groupId>
-	<artifactId>Assignment14</artifactId>
+	<artifactId>ChatApp</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Assignment14</name>
 	<description>Assignment14</description>
@@ -58,6 +58,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.34</version>
+			<scope>provided</scope>
 		</dependency>
 
 

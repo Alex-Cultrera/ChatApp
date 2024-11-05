@@ -1,6 +1,5 @@
-package com.coderscampus.Assignment14.domain;
+package com.codercultrera.ChatApp.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -16,7 +15,7 @@ public class Channel {
     @Column(length = 100)
     private String channelName;
     @ManyToOne
-    @JoinColumn(name="user_id")
+    @JoinColumn(name = "user_id")
     private User createdBy;
     @ManyToMany(mappedBy = "channels")
     private List<User> users = new ArrayList<>();

@@ -1,6 +1,5 @@
-package com.coderscampus.Assignment14.domain;
+package com.codercultrera.ChatApp.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;

@@ -1,13 +1,15 @@
-package com.coderscampus.Assignment14.web;
+package com.codercultrera.ChatApp.web;
 
-import com.coderscampus.Assignment14.domain.User;
-import com.coderscampus.Assignment14.service.ChannelService;
-import com.coderscampus.Assignment14.service.UserService;
+import com.codercultrera.ChatApp.domain.User;
+import com.codercultrera.ChatApp.service.ChannelService;
+import com.codercultrera.ChatApp.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+@Slf4j
 @Controller
 public class UserController {
 	
@@ -22,7 +24,7 @@ public class UserController {
 	@GetMapping("/register")
 	public String create (ModelMap model) {
 		model.put("user", new User());
-		return "user/create";
+		return "user/register";
 	}
 
 	@PostMapping("/register")
@@ -32,7 +34,7 @@ public class UserController {
 		} else {
 			boolean invalidUsername = userService.validateUsername(user.getUsername());
 			if (invalidUsername) {
-				System.out.println("INVALID USERNAME");
+				log.error("The username {} already exists", user.getUsername());
 				return "redirect:/register";
 			} else {
 				if (userService.findAll().isEmpty()) {
@@ -48,7 +50,7 @@ public class UserController {
 	}
 
 	@PostMapping("/user/exists")
-	@ResponseBody // tells Spring to treat this method like a RestController endpoint (aka RESTful endpoint) so it returns an object and not a view
+	@ResponseBody
 	public Boolean postExists(@RequestBody User user) {
 		User potentialUser = userService.findByUsername(user.getUsername());
 		return (potentialUser != null);
@@ -65,13 +67,11 @@ public class UserController {
 		if (user.getUsername().isEmpty() || user.getPassword().isEmpty()) {
 			return "redirect:/login";
 		} else {
-			// Validate user credentials
 			User validUser = userService.findByUsername(user.getUsername());
 			if (validUser == null || !validUser.getPassword().equals(user.getPassword())) {
-				System.out.println("NOT A VALID USER");
+				log.error("Invalid user credentials");
 				return "redirect:/login";
 			}
-			System.out.println("USER IS VALID");
 			redirectAttributes.addAttribute("userId", validUser.getUserId());
 		}
 		return "redirect:/user/{userId}";
@@ -85,24 +85,24 @@ public class UserController {
 		}
 		model.put("user", user);
 		model.put("channels", user.getChannels());
-		return "user/read";
+		return "user/dashboard";
 	}
 
-	@GetMapping("/user/{userId}/update")
+	@GetMapping("/user/{userId}/settings")
 	public String update (ModelMap model, @PathVariable Long userId) {
 		User user = userService.findById(userId);
 		if (user == null) {
 			return "redirect:/user/{userId}";
 		}
 		model.put("user", user);
-		return "user/update";
+		return "user/settings";
 	}
 
-	@PostMapping("/user/{userId}/update")
+	@PostMapping("/user/{userId}/settings")
 	public String postUpdate(@PathVariable Long userId, User user) {
 		User existingUser = userService.findById(userId);
 		userService.update(existingUser, user);
-		return "redirect:/user/" + user.getUserId() + "/update";
+		return "redirect:/user/" + user.getUserId() + "/settings";
 	}
 
 

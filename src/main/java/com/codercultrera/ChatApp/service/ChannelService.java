@@ -1,8 +1,8 @@
-package com.coderscampus.Assignment14.service;
+package com.codercultrera.ChatApp.service;
 
-import com.coderscampus.Assignment14.domain.Channel;
-import com.coderscampus.Assignment14.domain.User;
-import com.coderscampus.Assignment14.repository.ChannelRepository;
+import com.codercultrera.ChatApp.domain.Channel;
+import com.codercultrera.ChatApp.domain.User;
+import com.codercultrera.ChatApp.repository.ChannelRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
