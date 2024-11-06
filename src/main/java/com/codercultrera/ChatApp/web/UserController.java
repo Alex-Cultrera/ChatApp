@@ -21,6 +21,12 @@ public class UserController {
 		this.channelService = channelService;
 	}
 
+	@GetMapping("")
+	public String home (ModelMap model) {
+		model.put("user", new User());
+		return "user/login";
+	}
+
 	@GetMapping("/register")
 	public String create (ModelMap model) {
 		model.put("user", new User());
