@@ -1,5 +1,4 @@
 const mySessionData = JSON.parse(sessionStorage.getItem("user"));
-console.log(mySessionData);
 
 var button = document.querySelector("#goToRegister")
 
@@ -24,7 +23,6 @@ logInButton.addEventListener('click', () => {
 
         sessionStorage.setItem("user", JSON.stringify(user));
 
-        console.log(mySessionData);
 
 
     }
