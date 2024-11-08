@@ -4,6 +4,7 @@ import com.codercultrera.ChatApp.domain.User;
 import com.codercultrera.ChatApp.service.ChannelService;
 import com.codercultrera.ChatApp.service.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,7 @@ public class UserController {
 	
 	private final UserService userService;
 	private final ChannelService channelService;
+	private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
 
 	public UserController(UserService userService, ChannelService channelService) {
 		this.userService = userService;
@@ -35,7 +37,7 @@ public class UserController {
 
 	@PostMapping("/register")
 	public String postCreate (User user) {
-		if (user.getUsername().isEmpty() || user.getPassword().isEmpty() || user.getName().isEmpty()) {
+		if (user.getUsername().isEmpty() || encoder.encode(user.getPassword()).isEmpty() || user.getName().isEmpty()) {
 			return "redirect:/register";
 		} else {
 			boolean invalidUsername = userService.validateUsername(user.getUsername());
@@ -70,11 +72,11 @@ public class UserController {
 
 	@PostMapping("/login")
 	public String postLogin (User user, RedirectAttributes redirectAttributes) {
-		if (user.getUsername().isEmpty() || user.getPassword().isEmpty()) {
+		if (user.getUsername().isEmpty() || encoder.encode(user.getPassword()).isEmpty()) {
 			return "redirect:/login";
 		} else {
 			User validUser = userService.findByUsername(user.getUsername());
-			if (validUser == null || !validUser.getPassword().equals(user.getPassword())) {
+			if (validUser == null || !encoder.matches(user.getPassword(), validUser.getPassword())) {
 				log.error("Invalid user credentials");
 				return "redirect:/login";
 			}
@@ -110,8 +112,6 @@ public class UserController {
 		userService.update(existingUser, user);
 		return "redirect:/user/" + user.getUserId() + "/settings";
 	}
-
-
 
 }
 

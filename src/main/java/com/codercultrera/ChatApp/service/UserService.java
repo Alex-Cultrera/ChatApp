@@ -2,6 +2,7 @@ package com.codercultrera.ChatApp.service;
 
 import com.codercultrera.ChatApp.domain.User;
 import com.codercultrera.ChatApp.repository.UserRepository;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,6 +11,9 @@ import java.util.List;
 public class UserService {
 
     private final UserRepository userRepo;
+
+    private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
+
 
     public UserService(UserRepository userRepo) {
         this.userRepo = userRepo;
@@ -27,8 +31,10 @@ public class UserService {
         return userRepo.findByUsername(username);
     }
 
-    public void save(User user) {
+    public User save(User user) {
+        user.setPassword(encoder.encode(user.getPassword()));
         userRepo.save(user);
+        return user;
     }
 
     public void update(User existingUser, User user) {
@@ -48,5 +54,6 @@ public class UserService {
         User user = userRepo.findByUsername(username);
         return user != null;
     }
+
 
 }
