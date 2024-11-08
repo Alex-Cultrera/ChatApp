@@ -29,6 +29,21 @@ public class UserController {
 		return "user/login";
 	}
 
+	@PostMapping("")
+	public String postHome (User user, RedirectAttributes redirectAttributes) {
+		if (user.getUsername().isEmpty() || encoder.encode(user.getPassword()).isEmpty()) {
+			return "redirect:/login";
+		} else {
+			User validUser = userService.findByUsername(user.getUsername());
+			if (validUser == null || !encoder.matches(user.getPassword(), validUser.getPassword())) {
+				log.error("Invalid user credentials");
+				return "redirect:/login";
+			}
+			redirectAttributes.addAttribute("userId", validUser.getUserId());
+		}
+		return "redirect:/user/{userId}";
+	}
+
 	@GetMapping("/register")
 	public String create (ModelMap model) {
 		model.put("user", new User());
