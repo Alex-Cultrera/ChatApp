@@ -18,7 +18,6 @@ logInButton.addEventListener('click', () => {
         console.log("Inputs look valid, proceed with form submission")
         var user = {
             "username" : username.value,
-            "password" : password.value
         }
 
         sessionStorage.setItem("user", JSON.stringify(user));
