@@ -4,7 +4,7 @@
 * JavaScript
 * CSS
 * Thymeleaf
-* 
+  
 ## Back-end/Server-side: 
 * Java
 * Spring
