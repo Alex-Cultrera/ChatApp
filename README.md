@@ -1,5 +1,7 @@
 # ChatApp
 
+Website: https://codercultrera-chatapp.up.railway.app/
+
 ## Front-end/UI: 
 * JavaScript
 * CSS
@@ -15,5 +17,3 @@
  
 ## DevOps: 
 * Railway
-
-Website: https://codercultrera-chatapp.up.railway.app/
